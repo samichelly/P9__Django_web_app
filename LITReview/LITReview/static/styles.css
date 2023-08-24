@@ -1,0 +1,49 @@
+/* Réinitialisation des marges et des rembourrages */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Style du corps et de la police */
+body {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+}
+
+/* Style du conteneur de navigation */
+nav ul {
+    list-style: none;
+    display: flex;
+    /* Affichage horizontal */
+    justify-content: center;
+    /* Centre les éléments horizontalement */
+    background-color: #333;
+    padding: 10px 0;
+}
+
+/* Style des éléments de la liste */
+nav ul li {
+    margin: 0 10px;
+    /* Espacement entre les éléments */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+/* Changement de couleur au survol */
+nav ul li a:hover {
+    color: #ff9900;
+}
+
+/* Style du paragraphe utilisateur */
+nav ul p {
+    margin-left: auto;
+    /* Déplace le paragraphe à droite */
+    color: #fff;
+}

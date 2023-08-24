@@ -1,0 +1,12 @@
+{% extends 'header.html' %}
+
+{% block title %}Création de Review{% endblock %}
+
+{% block content %}
+    <h2>Créer une Review</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Envoyer</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'header.html' %}
+{% load static %}
+
+{% block title %}Mes Posts{% endblock %}
+
+{% block content %}
+<h2>Mes billets</h2>
+<ul>
+    {% for post in user_posts %}
+    <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+        <!-- <img src="{{ post.image.url }}" alt="{{ post.title }}"> -->
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

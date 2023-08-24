@@ -1,0 +1,23 @@
+{% extends 'header.html' %}
+
+{% block title %}Mon Flux{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<h2>Mon Flux</h2>
+
+<h3>Nouveau Post</h3>
+<button> <a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
+<button> <a href="{% url 'create_review' %}">Créer une Review</a></button>
+
+<h3>Posts</h3>
+<ul>
+    {% for post in posts %}
+    <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.description }}</p>
+        <p>Posté par: {{ post.user.username }}</p>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

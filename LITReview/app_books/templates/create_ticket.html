@@ -1,0 +1,12 @@
+{% extends 'header.html' %}
+
+{% block title %}Création de Billet{% endblock %}
+
+{% block content %}
+    <h2>Créer un nouveau billet</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Créer</button>
+    </form>
+{% endblock %}

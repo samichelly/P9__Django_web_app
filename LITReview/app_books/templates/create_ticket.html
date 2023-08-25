@@ -1,12 +1,12 @@
-{% extends 'header.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Création de Billet{% endblock %}
+{% block title %}Créer un billet{% endblock %}
 
 {% block content %}
-    <h2>Créer un nouveau billet</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Créer</button>
-    </form>
+<h2>Créer un nouveau billet</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer</button>
+</form>
 {% endblock %}

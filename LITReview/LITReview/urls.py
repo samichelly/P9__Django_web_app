@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from app_books import views
+from django.conf import settings
 from django.views.defaults import server_error
+from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from app_books import views
 
 urlpatterns = [
     path("test_error/", server_error),
@@ -30,5 +32,10 @@ urlpatterns = [
     path("posts/", views.posts, name="posts"),
     path("create_ticket/", views.create_ticket, name="create_ticket"),
     path("create_review/", views.create_review, name="create_review"),
+    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
+    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

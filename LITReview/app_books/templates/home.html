@@ -1,4 +1,4 @@
-{% extends 'header.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Mon Flux{% endblock %}
 
@@ -17,6 +17,7 @@
         <h3>{{ post.title }}</h3>
         <p>{{ post.description }}</p>
         <p>Posté par: {{ post.user.username }}</p>
+        <p>{{ post.date_timed }}</p>
     </li>
     {% endfor %}
 </ul>

@@ -5,38 +5,25 @@ from .models import Ticket, Review
 
 
 class SignUpForm(UserCreationForm):
-    # Ajouter des champs personnalisés
-    # utiliser directemet cet import forms.ModelForm ?
+    email = forms.EmailField(
+        required=True, help_text="Requis. Veuillez entrer une adresse e-mail valide."
+    )
+
     class Meta:
         model = User
-        fields = ("username", "password1", "password2")
+        fields = ("username", "email", "password1", "password2")
 
 
 class SignInForm(AuthenticationForm):
-    # Ajouter des champs personnalisés
-    # utiliser directemet cet import forms.ModelForm ?
     class Meta:
         model = User
         fields = ("username", "password")
 
 
-class SubscriptionForm(forms.Form):
-    users_to_follow = forms.ModelChoiceField(
-        queryset=None,
-        widget=forms.Select(attrs={"class": "form-control"}),
-    )
-
-    def __init__(self, *args, **kwargs):
-        users_to_follow = kwargs.pop("users_to_follow", None)
-        super().__init__(*args, **kwargs)
-        self.fields["users_to_follow"].queryset = users_to_follow
-
-
-
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
-        fields = ("title", "description", "user")  # , "image")
+        fields = ("title", "description", "image")
 
 
 class ReviewForm(forms.ModelForm):

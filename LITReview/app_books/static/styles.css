@@ -1,49 +1,78 @@
-/* Réinitialisation des marges et des rembourrages */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Style du corps et de la police */
-body {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-    background-color: #f8f8f8;
-}
-
-/* Style du conteneur de navigation */
+/* Styles de la navigation */
 nav ul {
     list-style: none;
     display: flex;
-    /* Affichage horizontal */
-    justify-content: center;
-    /* Centre les éléments horizontalement */
     background-color: #333;
-    padding: 10px 0;
+    padding: 10px;
 }
 
-/* Style des éléments de la liste */
 nav ul li {
-    margin: 0 10px;
-    /* Espacement entre les éléments */
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
 }
 
 nav ul li a {
+    color: #fff;
     text-decoration: none;
-    color: #fff;
-    transition: color 0.3s ease;
+    transition: color 0.3s;
 }
 
-/* Changement de couleur au survol */
 nav ul li a:hover {
-    color: #ff9900;
+    color: #ffc107;
 }
 
-/* Style du paragraphe utilisateur */
-nav ul p {
-    margin-left: auto;
-    /* Déplace le paragraphe à droite */
-    color: #fff;
+/* Styles généraux */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
 }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Styles des onglets */
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tab-navigation ul {
+    display: flex;
+    list-style: none;
+    background-color: #333;
+    padding: 10px;
+}
+
+.tab-navigation ul li {
+    margin-right: 20px;
+}
+
+.tab-navigation ul li:last-child {
+    margin-right: 0;
+}
+
+.tab-navigation ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.tab-navigation ul li a:hover {
+    color: #ffc107;
+}
+
+/* Ajoutez vos autres styles personnalisés ici */

@@ -1,19 +1,44 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <title>LITRevu</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 
-<header>
-    <div>
-        <img src="logo_LITRevu.jpg" alt="Logo" />
-    </div>
-</header>
-
 <body>
-    {% block content %}{% endblock %}
+    <header>
+        <div>
+            <img src="{% static 'logo_LITRevu.jpg' %}" alt="Logo" />
+        </div>
+        {% if user.is_authenticated %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Flux</a></li>
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+                <li><a href="{% url 'subscription' %}">Abonnements</a></li>
+                <li><a href="{% url 'signin' %}">Se déconnecter</a></li>
+                <p>Utilisateur : {{ user.username }}</p>
+            </ul>
+        </nav>
+        {% else %}
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Accueil</a></li>
+                <li><a href="{% url 'signin' %}">Se connecter</a></li>
+            </ul>
+        </nav>
+        {% endif %}
+    </header>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
 
 </html>

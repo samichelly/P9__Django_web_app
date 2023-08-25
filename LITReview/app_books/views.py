@@ -1,23 +1,20 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
-from django.contrib.auth.models import User
-from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm, SubscriptionForm
-from .models import Ticket, Review, UserFollows
-
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from .models import Ticket, Review, UserFollows
+from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
+from django.contrib.auth import login, authenticate, logout
 
 
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             return redirect("signin")
     else:
-        # est déclenché au premier affichage,
-        # requete GET avec form vide. une fois submit, requete POST dclenché
         form = SignUpForm()
-        # return redirect("test_connexion")
     return render(request, "signup.html", {"form": form})
 
 
@@ -29,77 +26,83 @@ def signin(request):
             login(request, user)
             return redirect("home")
     else:
-        form = SignInForm()  # à voir la diff avec POST
+        form = SignInForm(request)
     return render(request, "signin.html", {"form": form})
 
 
-def user_logout(request):
+@login_required
+def signout(request):
     logout(request)
-    return redirect("signin")
+    return redirect("home")
 
 
 @login_required
 def home(request):
-    if request.user.is_authenticated:
-        following_users = request.user.following.all()
-        following_users_ids = [user.id for user in following_users]
-        posts = Ticket.objects.filter(
-            user__in=following_users_ids
-        ) | Ticket.objects.filter(user=request.user)
-    else:
-        posts = Ticket.objects.all()
-
+    following_users = request.user.following.all()
+    following_users_ids = [user.id for user in following_users]
+    posts = Ticket.objects.filter(user__in=following_users_ids) | Ticket.objects.filter(
+        user=request.user
+    )
     return render(request, "home.html", {"posts": posts})
 
 
-def subscription(request):
-    if request.method == "POST":
-        form = SubscriptionForm(
-            request.POST, users_to_follow=User.objects.exclude(id=request.user.id)
-        )
-        if form.is_valid():
-            followed_user = form.cleaned_data["users_to_follow"]
-            user_follows = UserFollows(user=request.user, followed_user=followed_user)
-            user_follows.save()
-            return redirect("subscription")
-    else:
-        form = SubscriptionForm(
-            users_to_follow=User.objects.exclude(id=request.user.id)
-        )
-    return render(request, "subscription.html", {"form": form})
-
-
-# @login_required
+@login_required
 def create_ticket(request):
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES)
         if form.is_valid():
             ticket = form.save(commit=False)
-            ticket.author = request.user
-            form.save()
+            ticket.user = request.user
+            ticket.save()
             return redirect("posts")
     else:
         form = TicketForm()
     return render(request, "create_ticket.html", {"form": form})
 
 
-# @login_required  # Assurez-vous que l'utilisateur est connecté pour accéder à cette vue
-def create_review(request):
+@login_required
+def edit_post(request, post_id):
+    post = get_object_or_404(Ticket, id=post_id, user=request.user)
     if request.method == "POST":
-        form = ReviewForm(request.POST)
+        form = TicketForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            # billet = form.save(commit=False)
-            # billet.author = request.user
             form.save()
-            return redirect(
-                "home"
-            )  # Redirigez vers la page d'accueil après la création du billet
+            return redirect("posts")
     else:
-        form = ReviewForm()
-    return render(request, "create_review.html", {"form": form})
+        form = TicketForm(instance=post)
+    return render(request, "edit_post.html", {"form": form, "post": post})
+
+
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Ticket, id=post_id, user=request.user)
+    if request.method == "POST":
+        post.delete()
+        return redirect("posts")
+    return render(request, "delete_post.html", {"post": post})
 
 
 @login_required
 def posts(request):
     user_posts = Ticket.objects.filter(user=request.user)
     return render(request, "posts.html", {"user_posts": user_posts})
+
+
+@login_required
+def create_review(request, post_id):
+    ticket = get_object_or_404(Ticket, id=post_id)
+    if request.method == "POST":
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.user = request.user
+            review.ticket = ticket
+            review.save()
+            return redirect("posts")
+    else:
+        form = ReviewForm()
+    return render(request, "create_review.html", {"form": form, "ticket": ticket})
+
+
+def subscription(request):
+    return render(request, "subscription.html")

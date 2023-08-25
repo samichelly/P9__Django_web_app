@@ -1,18 +1,8 @@
-{% extends 'header.html' %}
+{% extends 'base.html' %}
 
 {% block title %}Mes Abonnements{% endblock %}
 
 
 {% block content %}
 <h2>Abonnements</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Suivre</button>
-</form>
-
-<h3>Utilisateurs suivis :</h3>
-{% for followed in request.user.following.all %}
-<p>{{ followed.followed_user.username }}</p>
-{% endfor %}
 {% endblock %}

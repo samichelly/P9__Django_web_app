@@ -21,14 +21,13 @@
                 <li><a href="{% url 'home' %}">Flux</a></li>
                 <li><a href="{% url 'posts' %}">Posts</a></li>
                 <li><a href="{% url 'subscription' %}">Abonnements</a></li>
-                <li><a href="{% url 'signin' %}">Se déconnecter</a></li>
+                <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
                 <p>Utilisateur : {{ user.username }}</p>
             </ul>
         </nav>
         {% else %}
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Accueil</a></li>
                 <li><a href="{% url 'signin' %}">Se connecter</a></li>
             </ul>
         </nav>

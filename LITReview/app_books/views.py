@@ -33,7 +33,7 @@ def signin(request):
 @login_required
 def signout(request):
     logout(request)
-    return redirect("home")
+    return redirect("signin")
 
 
 @login_required
@@ -98,11 +98,6 @@ def create_review(request, ticket_id):
     else:
         form = ReviewForm()
     return render(request, "create_review.html", {"form": form, "ticket": ticket})
-
-
-def ticket_detail(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    return render(request, "ticket_detail.html", {"ticket": ticket})
 
 
 def subscription(request):

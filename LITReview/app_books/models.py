@@ -1,6 +1,14 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+
+RATING_CHOICES = (
+    (1, "1"),
+    (2, "2"),
+    (3, "3"),
+    (4, "4"),
+    (5, "5"),
+)
 
 
 class Ticket(models.Model):
@@ -12,9 +20,9 @@ class Ticket(models.Model):
 
 
 class Review(models.Model):
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="reviews")
     headline = models.CharField(max_length=128)
-    rating = models.PositiveIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
     body = models.TextField(max_length=2048)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)

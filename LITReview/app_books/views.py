@@ -38,12 +38,14 @@ def signout(request):
 
 @login_required
 def home(request):
-    following_users = request.user.following.all()
-    following_users_ids = [user.id for user in following_users]
-    posts = Ticket.objects.filter(user__in=following_users_ids) | Ticket.objects.filter(
-        user=request.user
-    )
+    posts = Ticket.objects.all()
     return render(request, "home.html", {"posts": posts})
+
+
+@login_required
+def posts(request):
+    user_posts = Ticket.objects.filter(user=request.user)
+    return render(request, "posts.html", {"user_posts": user_posts})
 
 
 @login_required
@@ -83,14 +85,8 @@ def delete_post(request, post_id):
 
 
 @login_required
-def posts(request):
-    user_posts = Ticket.objects.filter(user=request.user)
-    return render(request, "posts.html", {"user_posts": user_posts})
-
-
-@login_required
-def create_review(request, post_id):
-    ticket = get_object_or_404(Ticket, id=post_id)
+def create_review(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
     if request.method == "POST":
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -98,10 +94,15 @@ def create_review(request, post_id):
             review.user = request.user
             review.ticket = ticket
             review.save()
-            return redirect("posts")
+            return redirect("home")
     else:
         form = ReviewForm()
     return render(request, "create_review.html", {"form": form, "ticket": ticket})
+
+
+def ticket_detail(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    return render(request, "ticket_detail.html", {"ticket": ticket})
 
 
 def subscription(request):

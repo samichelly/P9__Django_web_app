@@ -31,9 +31,11 @@ urlpatterns = [
     path("subscription/", views.subscription, name="subscription"),
     path("posts/", views.posts, name="posts"),
     path("create_ticket/", views.create_ticket, name="create_ticket"),
+    path('ticket/<int:ticket_id>/', views.ticket_detail, name='ticket_detail'),
     path("create_review/", views.create_review, name="create_review"),
-    path('edit_post/<int:post_id>/', views.edit_post, name='edit_post'),
-    path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
+    path("create_review/<int:ticket_id>/", views.create_review, name="create_review"),
+    path("edit_post/<int:post_id>/", views.edit_post, name="edit_post"),
+    path("delete_post/<int:post_id>/", views.delete_post, name="delete_post"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 ]
 

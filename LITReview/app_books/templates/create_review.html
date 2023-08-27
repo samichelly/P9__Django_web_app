@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
 
-{% block title %}Création de Review{% endblock %}
+{% block title %}Créer une Review{% endblock %}
 
 {% block content %}
-    <h2>Créer une Review</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Envoyer</button>
-    </form>
+<h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
+<div>
+    {{ ticket.image }}<br>
+    {{ ticket.description }}<br>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Créer</button>
+</form>
+<a href="{% url 'ticket_detail' ticket_id=ticket.id %}">Retour au Ticket</a>
 {% endblock %}

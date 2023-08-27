@@ -7,8 +7,8 @@
 <h2>Mon Flux</h2>
 
 <h3>Nouveau Post</h3>
-<button> <a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
-<button> <a href="{% url 'create_review' %}">Créer une Review</a></button>
+<button><a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
+<button><a href="{% url 'create_review' %}">Créer une Review</a></button>
 
 <h3>Posts</h3>
 <ul>
@@ -16,8 +16,21 @@
     <li>
         <h3>{{ post.title }}</h3>
         <p>{{ post.description }}</p>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
         <p>Posté par: {{ post.user.username }}</p>
-        <p>{{ post.date_timed }}</p>
+        <p>{{ post.time_created }}</p>
+        <p>TEST 1</p>
+        {% if post.review %}
+        <p>TEST 2</p>
+        <h4>Review :</h4>
+        <p>Titre : {{ post.review.headline }}</p>
+        <p>Note : {{ post.review.rating }}</p>
+        <p>Contenu : {{ post.review.body }}</p>
+        {% else %}
+        <button><a href="{% url 'create_review' post.id %}">Créer une Review</a></button>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

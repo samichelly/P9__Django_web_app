@@ -13,6 +13,8 @@
         {% if post.image %}
         <img src="{{ post.image.url }}" alt="{{ post.title }}">
         {% endif %}
+        <p>Posté par: {{ post.user.username }}</p>
+        <p>{{ post.time_created }}</p>
         <a href="{% url 'edit_post' post.id %}">Éditer</a>
         <a href="{% url 'delete_post' post.id %}">Supprimer</a>
     </li>

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Éditer le billet{% endblock %}
+{% block title %}Éditer le Post{% endblock %}
 
 {% block content %}
-<h2>Éditer le billet</h2>
+<h2>Éditer le Post</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

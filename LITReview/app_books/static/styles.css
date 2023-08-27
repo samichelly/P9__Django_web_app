@@ -1,9 +1,10 @@
+/* Formatage */
 * {
     margin: 0;
     padding: 0;
 }
 
-/* Styles de la navigation */
+
 nav ul {
     list-style: none;
     display: flex;
@@ -32,7 +33,7 @@ nav ul li a:hover {
 /* Styles généraux */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
 }
 
 .container {
@@ -74,5 +75,3 @@ body {
 .tab-navigation ul li a:hover {
     color: #ffc107;
 }
-
-/* Ajoutez vos autres styles personnalisés ici */

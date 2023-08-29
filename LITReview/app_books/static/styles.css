@@ -4,7 +4,18 @@
     padding: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+}
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* NavBar */
 nav ul {
     list-style: none;
     display: flex;
@@ -26,52 +37,14 @@ nav ul li a {
     transition: color 0.3s;
 }
 
+nav ul p {
+    color: yellow;
+}
+
+nav ul h3 {
+    color: white;
+}
+
 nav ul li a:hover {
-    color: #ffc107;
-}
-
-/* Styles généraux */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Styles des onglets */
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.tab-navigation ul {
-    display: flex;
-    list-style: none;
-    background-color: #333;
-    padding: 10px;
-}
-
-.tab-navigation ul li {
-    margin-right: 20px;
-}
-
-.tab-navigation ul li:last-child {
-    margin-right: 0;
-}
-
-.tab-navigation ul li a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.tab-navigation ul li a:hover {
     color: #ffc107;
 }

@@ -14,6 +14,7 @@
 <ul>
     {% for post in posts %}
     <li>
+
         <h3>{{ post.title }}</h3>
         <p>{{ post.description }}</p>
         {% if post.image %}
@@ -22,12 +23,15 @@
         <p>Posté par: {{ post.user.username }}</p>
         <p>{{ post.time_created }}</p>
         <p>TEST 1</p>
-        {% if post.review %}
+
+        {% if post.reviews %}
+        {{ post }}
+        {{ post.reviews }}
         <p>TEST 2</p>
         <h4>Review :</h4>
-        <p>Titre : {{ post.review.headline }}</p>
-        <p>Note : {{ post.review.rating }}</p>
-        <p>Contenu : {{ post.review.body }}</p>
+        <p>Titre : {{ post.reviews.headline }}</p>
+        <p>Note : {{ post.reviews.rating }}</p>
+        <p>Contenu : {{ post.reviews.body }}</p>
         {% else %}
         <button><a href="{% url 'create_review' post.id %}">Créer une Review</a></button>
         {% endif %}

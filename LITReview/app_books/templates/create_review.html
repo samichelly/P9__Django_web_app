@@ -3,6 +3,7 @@
 {% block title %}Créer une Review{% endblock %}
 
 {% block content %}
+{% if ticket %}
 <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
 <div>
     {{ ticket.image }}<br>
@@ -14,5 +15,14 @@
     {{ form.as_p }}
     <button type="submit">Créer</button>
 </form>
-<a href="{% url 'ticket_detail' ticket_id=ticket.id %}">Retour au Ticket</a>
+
+{% else %}
+<h2>Créer un nouveau Ticket et une Review</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ ticket_form.as_p }}
+    {{ review_form.as_p }}
+    <button type="submit">Créer</button>
+</form>
+{% endif %}
 {% endblock %}

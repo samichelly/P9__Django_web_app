@@ -26,6 +26,7 @@ class Review(models.Model):
     body = models.TextField(max_length=2048)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)
+    #  regarder One-One, 1 review pour 1 ticket
 
 
 class UserFollows(models.Model):

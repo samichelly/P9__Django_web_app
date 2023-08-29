@@ -39,12 +39,14 @@ def signout(request):
 @login_required
 def home(request):
     posts = Ticket.objects.all()
+    # ajouter les review
     return render(request, "home.html", {"posts": posts})
 
 
 @login_required
 def posts(request):
     user_posts = Ticket.objects.filter(user=request.user)
+    # ajouter les review
     return render(request, "posts.html", {"user_posts": user_posts})
 
 
@@ -84,21 +86,74 @@ def delete_post(request, post_id):
     return render(request, "delete_post.html", {"post": post})
 
 
-@login_required
-def create_review(request, ticket_id):
-    ticket = get_object_or_404(Ticket, id=ticket_id)
-    if request.method == "POST":
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.ticket = ticket
-            review.save()
-            return redirect("home")
-    else:
-        form = ReviewForm()
-    return render(request, "create_review.html", {"form": form, "ticket": ticket})
-
-
 def subscription(request):
     return render(request, "subscription.html")
+
+
+# @login_required
+# def create_review(request, ticket_id):
+#     ticket = get_object_or_404(Ticket, id=ticket_id)
+#     if request.method == "POST":
+#         form = ReviewForm(request.POST)
+#         if form.is_valid():
+#             review = form.save(commit=False)
+#             review.user = request.user
+#             review.ticket = ticket
+#             review.save()
+#             return redirect("home")
+#     else:
+#         form = ReviewForm()
+#     return render(request, "create_review.html", {"form": form, "ticket": ticket})
+
+
+# Adaptation create review
+
+
+@login_required
+def create_review(request, ticket_id=None):   #ticket et pas ticket_id
+    ticket = None
+    if ticket_id:
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    # Si ticket existe, créer review simplement
+    if request.method == "POST":
+        if ticket:
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.user = request.user
+                review.ticket = ticket
+                review.save()
+                return redirect("home")
+
+        # Sinon créer ticket et review / Modifier la fonction ticket pour l'adapter ?
+        else:
+            ticket_form = TicketForm(request.POST, request.FILES)
+            review_form = ReviewForm(request.POST)
+            if ticket_form.is_valid() and review_form.is_valid():
+                ticket = ticket_form.save(commit=False)
+                ticket.user = request.user
+                ticket.save()
+
+                review = review_form.save(commit=False)
+                review.user = request.user
+                review.ticket = ticket
+                review.save()
+
+                return redirect("home")
+    else:
+        if ticket:
+            form = ReviewForm()
+            context = {
+                "form": form,
+                "ticket": ticket,
+            }
+        else:
+            ticket_form = TicketForm()
+            review_form = ReviewForm()
+            context = {
+                "ticket_form": ticket_form,
+                "review_form": review_form,
+            }
+
+    return render(request, "create_review.html", context)

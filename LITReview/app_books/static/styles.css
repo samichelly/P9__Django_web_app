@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #ffffff;
+    background-color: #aecce9;
 }
 
 .container {
@@ -15,12 +15,41 @@ body {
     padding: 20px;
 }
 
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3f87cc;
+    border-bottom: 30px solid peru;
+    /* Ajoute la barre épaisse sous le header */
+    padding: 10px 0;
+}
+
+header img {
+    margin-right: 20px;
+}
+
+.user_connected {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 20px;
+    font-size: small;
+    font-style: italic;
+}
+
+
+
 /* NavBar */
 nav ul {
     list-style: none;
     display: flex;
-    background-color: #333;
+    /* background-color: #333; */
     padding: 10px;
+    margin-right: 10px;
+    justify-content: space-around;
 }
 
 nav ul li {
@@ -32,19 +61,42 @@ nav ul li:last-child {
 }
 
 nav ul li a {
-    color: #fff;
     text-decoration: none;
     transition: color 0.3s;
+    color: black;
+    font-size: 20px;
+    font-weight: 100;
 }
 
-nav ul p {
-    color: yellow;
-}
+
 
 nav ul h3 {
     color: white;
 }
 
 nav ul li a:hover {
-    color: #ffc107;
+    color: peru;
+}
+
+/* Posts */
+.ticket-container,
+.review-container {
+    list-style-type: none;
+}
+
+.ticket-container {
+    background-color: yellow;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.review-container {
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

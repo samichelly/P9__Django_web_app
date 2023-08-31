@@ -6,6 +6,11 @@ from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
 from django.contrib.auth import login, authenticate, logout
 
 
+from django.db.models import Value, CharField
+from django.db.models import F
+from itertools import chain
+
+
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -45,9 +50,22 @@ def home(request):
 
 @login_required
 def posts(request):
-    user_posts = Ticket.objects.filter(user=request.user)
-    # ajouter les review
-    return render(request, "posts.html", {"user_posts": user_posts})
+    user_posts = Ticket.objects.filter(user=request.user).annotate(
+        post_type=Value("ticket", output_field=CharField())
+    )
+    user_reviews = Review.objects.filter(user=request.user).annotate(
+        post_type=Value("review", output_field=CharField())
+    )
+
+    user_posts_and_reviews = sorted(
+        chain(user_posts, user_reviews),
+        key=lambda obj: obj.time_created,
+        reverse=True,
+    )
+
+    return render(
+        request, "posts.html", {"user_posts_and_reviews": user_posts_and_reviews}
+    )
 
 
 @login_required
@@ -64,6 +82,7 @@ def create_ticket(request):
     return render(request, "create_ticket.html", {"form": form})
 
 
+"""
 @login_required
 def edit_post(request, post_id):
     post = get_object_or_404(Ticket, id=post_id, user=request.user)
@@ -75,6 +94,37 @@ def edit_post(request, post_id):
     else:
         form = TicketForm(instance=post)
     return render(request, "edit_post.html", {"form": form, "post": post})
+"""
+
+
+@login_required
+def edit_ticket(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
+
+    if request.method == "POST":
+        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+    else:
+        form = TicketForm(instance=ticket)
+
+    return render(request, "edit_ticket.html", {"form": form, "ticket": ticket})
+
+
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, "edit_review.html", {"form": form, "review": review})
 
 
 @login_required
@@ -90,27 +140,8 @@ def subscription(request):
     return render(request, "subscription.html")
 
 
-# @login_required
-# def create_review(request, ticket_id):
-#     ticket = get_object_or_404(Ticket, id=ticket_id)
-#     if request.method == "POST":
-#         form = ReviewForm(request.POST)
-#         if form.is_valid():
-#             review = form.save(commit=False)
-#             review.user = request.user
-#             review.ticket = ticket
-#             review.save()
-#             return redirect("home")
-#     else:
-#         form = ReviewForm()
-#     return render(request, "create_review.html", {"form": form, "ticket": ticket})
-
-
-# Adaptation create review
-
-
 @login_required
-def create_review(request, ticket_id=None):   #ticket et pas ticket_id
+def create_review(request, ticket_id=None):  # ticket et pas ticket_id
     ticket = None
     if ticket_id:
         ticket = get_object_or_404(Ticket, id=ticket_id)
@@ -157,3 +188,79 @@ def create_review(request, ticket_id=None):   #ticket et pas ticket_id
             }
 
     return render(request, "create_review.html", context)
+
+
+"""
+@login_required
+def create_review(request, ticket_id=None):
+    ticket = None
+
+    if ticket_id:
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+
+    if request.method == "POST":
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+
+            if ticket:
+                review.ticket = ticket
+            else:
+                # Créer un ticket vide pour la review
+                new_ticket = Ticket.objects.create(user=request.user)
+                review.ticket = new_ticket
+
+            review.save()
+            return redirect("home")
+    else:
+        ticket_form = TicketForm()
+        review_form = ReviewForm()
+
+    context = {
+        "ticket": ticket,
+        "ticket_form": ticket_form,
+        "review_form": review_form,
+    }
+
+    return render(request, "create_review.html", context)
+
+"""
+
+"""
+@login_required
+def create_review(request, ticket_id=None):
+    print(ticket_id)
+    ticket = None
+
+    if ticket_id:
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+        if not ticket.user == request.user:
+            raise PermissionDenied("Accès refusé")
+
+    if request.method == "POST":
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user
+
+            if ticket:
+                review.ticket = ticket
+            else:
+                new_ticket = Ticket.objects.create(user=request.user)
+                review.ticket = new_ticket
+
+            review.save()
+            return redirect("home")
+    else:
+        ticket_form = TicketForm()
+        review_form = ReviewForm()
+
+    context = {
+        "ticket": ticket,
+        "ticket_form": ticket_form,
+        "review_form": review_form,
+    }
+
+    return render(request, "create_review.html", context)
+"""

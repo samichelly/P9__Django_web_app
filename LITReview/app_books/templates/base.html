@@ -13,7 +13,7 @@
 <body>
     <header>
         <div>
-            <img src="{% static 'logo_LITRevu.jpg' %}" alt="Logo" />
+            <img src="{% static 'logo_LITRevu-removebg-preview.png' %}" alt="Logo" />
         </div>
         {% if user.is_authenticated %}
         <nav>
@@ -22,14 +22,10 @@
                 <li><a href="{% url 'posts' %}">Posts</a></li>
                 <li><a href="{% url 'subscription' %}">Abonnements</a></li>
                 <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
+            </ul>
+            <div class="user_connected">
                 <p>Utilisateur : {{ user.username }}</p>
-            </ul>
-        </nav>
-        {% else %}
-        <nav>
-            <ul>
-                <h3>Se connecter</h3>
-            </ul>
+            </div>
         </nav>
         {% endif %}
     </header>

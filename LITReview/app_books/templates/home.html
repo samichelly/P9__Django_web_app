@@ -32,7 +32,7 @@
         <p>Titre : {{ post.reviews.headline }}</p>
         <p>Note : {{ post.reviews.rating }}</p>
         <p>Contenu : {{ post.reviews.body }}</p>
-        {% else %}
+        <!-- {% else %} -->
         <button><a href="{% url 'create_review' post.id %}">Créer une Review</a></button>
         {% endif %}
     </li>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer le Ticket{% endblock %}
+
+{% block content %}
+<h2>Supprimer le Ticket</h2>
+<p>Voulez-vous supprimer le post ?</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Confirmer</button>
+    <a href="{% url 'posts' %}">Annuler</a>
+</form>
+{% endblock %}

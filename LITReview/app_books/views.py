@@ -133,7 +133,7 @@ def delete_ticket(request, post_id):
     if request.method == "POST":
         post.delete()
         return redirect("posts")
-    return render(request, "delete_post.html", {"post": post})
+    return render(request, "delete_ticket.html", {"post": post})
 
 
 @login_required
@@ -142,7 +142,7 @@ def delete_review(request, post_id):
     if request.method == "POST":
         post.delete()
         return redirect("posts")
-    return render(request, "delete_post.html", {"post": post})
+    return render(request, "delete_review.html", {"post": post})
 
 
 def subscription(request):

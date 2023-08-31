@@ -36,7 +36,8 @@ urlpatterns = [
     # path("edit_post/<int:post_id>/", views.edit_post, name="edit_post"),
     path("edit_ticket/<int:ticket_id>/", views.edit_ticket, name="edit_ticket"),
     path("edit_review/<int:review_id>/", views.edit_review, name="edit_review"),
-    path("delete_post/<int:post_id>/", views.delete_post, name="delete_post"),
+    path("delete_ticket/<int:post_id>/", views.delete_ticket, name="delete_ticket"),
+    path("delete_review/<int:post_id>/", views.delete_review, name="delete_review"),
     path("logout/", views.signout, name="logout"),
 ]
 

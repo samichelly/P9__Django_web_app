@@ -61,7 +61,7 @@ nav ul li:last-child {
 }
 
 nav ul li a {
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 0.3s;
     color: black;
     font-size: 20px;

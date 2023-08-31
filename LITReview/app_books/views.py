@@ -128,8 +128,17 @@ def edit_review(request, review_id):
 
 
 @login_required
-def delete_post(request, post_id):
+def delete_ticket(request, post_id):
     post = get_object_or_404(Ticket, id=post_id, user=request.user)
+    if request.method == "POST":
+        post.delete()
+        return redirect("posts")
+    return render(request, "delete_post.html", {"post": post})
+
+
+@login_required
+def delete_review(request, post_id):
+    post = get_object_or_404(Review, id=post_id, user=request.user)
     if request.method == "POST":
         post.delete()
         return redirect("posts")

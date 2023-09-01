@@ -13,18 +13,26 @@
             <h1>{{ post.post_type }}</h1>
             <h3>Titre : {{ post.title }}</h3>
             <p>Description : {{ post.description }}</p>
-            <p>Posté par: {{ post.user.username }}</p>
+            <p>Posté par : {{ post.user.username }}</p>
             <p>Date création : {{ post.time_created }}</p>
             {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
+            {% endif %}
             <button class="button secondary-button"><a href="{% url 'edit_ticket' post.id %}">Éditer</a></button>
             <button class="button secondary-button"><a href="{% url 'delete_ticket' post.id %}">Supprimer</a></button>
-            {% endif %}
+
         </div>
         {% elif post.post_type == 'review' %}
         <div class="review-container">
             <h1>{{ post.post_type }}</h1>
             <h3>Review pour le billet "{{ post.ticket.title }}"</h3>
+            {% if post.ticket.image %}
+            <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}"><br>
+            {% endif %}
+            <p>Description : {{ post.ticket.description }}</p>
+            <p>Posté par : : {{ post.ticket.user.username }}</p>
+            <p>Date création : {{ post.ticket.time_created }}</p>
+            <h3>Review</h3>
             <p>Titre : {{ post.headline }}</p>
             <p>Note : {{ post.rating }}</p>
             <p>Contenu : {{ post.body }}</p>

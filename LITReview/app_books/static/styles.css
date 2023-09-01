@@ -99,6 +99,23 @@ nav ul li a:hover {
     border-radius: 5px;
 }
 
+.block_create_review {
+    background-color: purple;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.block_ticket_increate_review {
+    background-color: grey;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 5px solid black;
+    border-radius: 5px;
+}
 
 /* Bouton de base */
 .button {

@@ -4,31 +4,37 @@
 
 {% block content %}
 {% if ticket and ticket.review_exist %}
-<h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
 <div>
-    {{ ticket.image }}<br>
-    {{ ticket.description }}<br>
-    <p>Ce ticket a déjà une review</p>
+    <h3>Erreur : Une review a été rédigé pour ce ticket</h3>
+    <button class="button secondary-button"><a href="{% url 'home' %}">Retour</a></button>
 </div>
 
 {% elif ticket and not ticket.review_exist %}
-<div>
-    {{ ticket.image }}<br>
-    {{ ticket.description }}<br>
-</div>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="button success-button" type="submit">Créer</button>
-</form>
+<div class="block_create_review">
 
-{% else %}
-<h2>Créer un nouveau Ticket et une Review</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ ticket_form.as_p }}
-    {{ review_form.as_p }}
-    <button class="button success-button" type="submit">Créer</button>
-</form>
+
+
+    <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
+    <div class="block_ticket_increate_review">
+        {% if ticket.image %}
+        <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"><br>
+        {% endif %}
+        {{ ticket.description }}<br>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button success-button" type="submit">Créer</button>
+    </form>
+
+    {% else %}
+    <h2>Créer un nouveau Ticket et une Review</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ ticket_form.as_p }}
+        {{ review_form.as_p }}
+        <button class="button success-button" type="submit">Créer</button>
+    </form>
+</div>
 {% endif %}
 {% endblock %}

@@ -1,14 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from .models import Ticket, Review, UserFollows
-from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
 from django.contrib.auth import login, authenticate, logout
-
-
 from django.db.models import Value, CharField
 from django.db.models import F
 from itertools import chain
+from .models import Ticket, Review, UserFollows
+from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
 
 
 def signup(request):
@@ -41,15 +39,6 @@ def signout(request):
     return redirect("signin")
 
 
-"""
-@login_required
-def home(request):
-    posts = Ticket.objects.all()
-    # ajouter les review
-    return render(request, "home.html", {"posts": posts})
-"""
-
-
 def home(request):
     all_tickets = Ticket.objects.all().annotate(
         post_type=Value("ticket", output_field=CharField())
@@ -64,11 +53,7 @@ def home(request):
         reverse=True,
     )
 
-    print(all_posts)
-
-    return render(
-        request, "home.html", {"user_posts_and_reviews": all_posts}
-    )
+    return render(request, "home.html", {"user_posts_and_reviews": all_posts})
 
 
 @login_required
@@ -169,6 +154,7 @@ def create_review(request, ticket_id=None):  # ticket et pas ticket_id
             return render(
                 request,
                 "create_review.html",
+                {"review_exist": True},
             )
 
         elif ticket:

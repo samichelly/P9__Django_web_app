@@ -4,13 +4,7 @@ from .models import Ticket, Review
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = (
-        "id",
-        "title",
-        "user",
-        "image",
-        "time_created",
-    )
+    list_display = ("id", "title", "user", "image", "time_created", "review_exist")
     search_fields = ("title", "user__username")
     list_filter = ("user",)
 
@@ -19,8 +13,9 @@ class TicketAdmin(admin.ModelAdmin):
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "headline",
         "ticket",
+        "headline",
+        "rating",
         "user",
         "time_created",
     )

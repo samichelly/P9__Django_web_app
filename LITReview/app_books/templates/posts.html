@@ -17,8 +17,8 @@
             <p>Date création : {{ post.time_created }}</p>
             {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
-            <button><a href="{% url 'edit_ticket' post.id %}">Éditer</a></button>
-            <button><a href="{% url 'delete_ticket' post.id %}">Supprimer</a></button>
+            <button class="button secondary-button"><a href="{% url 'edit_ticket' post.id %}">Éditer</a></button>
+            <button class="button secondary-button"><a href="{% url 'delete_ticket' post.id %}">Supprimer</a></button>
             {% endif %}
         </div>
         {% elif post.post_type == 'review' %}
@@ -30,8 +30,8 @@
             <p>Contenu : {{ post.body }}</p>
             <p>Posté par: {{ post.user.username }}</p>
             <p>{{ post.time_created }}</p>
-            <button><a href="{% url 'edit_review' post.id %}">Éditer</a></button>
-            <button><a href="{% url 'delete_review' post.id %}">Supprimer</a></button>
+            <button class="button secondary-button"><a href="{% url 'edit_review' post.id %}">Éditer</a></button>
+            <button class="button secondary-button"><a href="{% url 'delete_review' post.id %}">Supprimer</a></button>
         </div>
         {% endif %}
     </li>

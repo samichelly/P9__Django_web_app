@@ -41,11 +41,34 @@ def signout(request):
     return redirect("signin")
 
 
+"""
 @login_required
 def home(request):
     posts = Ticket.objects.all()
     # ajouter les review
     return render(request, "home.html", {"posts": posts})
+"""
+
+
+def home(request):
+    all_tickets = Ticket.objects.all().annotate(
+        post_type=Value("ticket", output_field=CharField())
+    )
+    all_reviews = Review.objects.all().annotate(
+        post_type=Value("review", output_field=CharField())
+    )
+
+    all_posts = sorted(
+        chain(all_tickets, all_reviews),
+        key=lambda obj: obj.time_created,
+        reverse=True,
+    )
+
+    print(all_posts)
+
+    return render(
+        request, "home.html", {"user_posts_and_reviews": all_posts}
+    )
 
 
 @login_required
@@ -80,21 +103,6 @@ def create_ticket(request):
     else:
         form = TicketForm()
     return render(request, "create_ticket.html", {"form": form})
-
-
-"""
-@login_required
-def edit_post(request, post_id):
-    post = get_object_or_404(Ticket, id=post_id, user=request.user)
-    if request.method == "POST":
-        form = TicketForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect("posts")
-    else:
-        form = TicketForm(instance=post)
-    return render(request, "edit_post.html", {"form": form, "post": post})
-"""
 
 
 @login_required
@@ -157,13 +165,21 @@ def create_review(request, ticket_id=None):  # ticket et pas ticket_id
 
     # Si ticket existe, créer review simplement
     if request.method == "POST":
-        if ticket:
+        if ticket and ticket.review_exist:
+            return render(
+                request,
+                "create_review.html",
+            )
+
+        elif ticket:
             form = ReviewForm(request.POST)
             if form.is_valid():
                 review = form.save(commit=False)
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
+                ticket.review_exist = True
+                ticket.save()
                 return redirect("home")
 
         # Sinon créer ticket et review / Modifier la fonction ticket pour l'adapter ?
@@ -173,6 +189,7 @@ def create_review(request, ticket_id=None):  # ticket et pas ticket_id
             if ticket_form.is_valid() and review_form.is_valid():
                 ticket = ticket_form.save(commit=False)
                 ticket.user = request.user
+                ticket.review_exist = True
                 ticket.save()
 
                 review = review_form.save(commit=False)

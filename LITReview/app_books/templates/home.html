@@ -7,33 +7,36 @@
 <h2>Mon Flux</h2>
 
 <h3>Nouveau Post</h3>
-<button><a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
-<button><a href="{% url 'create_review' %}">Créer une Review</a></button>
+<button class="button primary-button"><a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
+<button class="button primary-button"><a href="{% url 'create_review' %}">Créer une Review</a></button>
 
 <h3>Posts</h3>
 <ul>
-    {% for post in posts %}
+    {% for post in user_posts_and_reviews %}
     <li>
-
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.description }}</p>
-        {% if post.image %}
-        <img src="{{ post.image.url }}" alt="{{ post.title }}">
-        {% endif %}
-        <p>Posté par: {{ post.user.username }}</p>
-        <p>{{ post.time_created }}</p>
-        <p>TEST 1</p>
-
-        {% if post.reviews %}
-        {{ post }}
-        {{ post.reviews }}
-        <p>TEST 2</p>
-        <h4>Review :</h4>
-        <p>Titre : {{ post.reviews.headline }}</p>
-        <p>Note : {{ post.reviews.rating }}</p>
-        <p>Contenu : {{ post.reviews.body }}</p>
-        <!-- {% else %} -->
-        <button><a href="{% url 'create_review' post.id %}">Créer une Review</a></button>
+        {% if post.post_type == 'ticket' %}
+        <div class="ticket-container">
+            <h1>{{ post.post_type }}</h1>
+            <h3>Titre : {{ post.title }}</h3>
+            <p>Description : {{ post.description }}</p>
+            <p>Posté par: {{ post.user.username }}</p>
+            <p>Date création : {{ post.time_created }}</p>
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
+            <button class="button secondary-button"><a href="{% url 'create_review' post.id %}">Créer une
+                    review</a></button>
+            {% endif %}
+        </div>
+        {% elif post.post_type == 'review' %}
+        <div class="review-container">
+            <h1>{{ post.post_type }}</h1>
+            <h3>Review pour le billet "{{ post.ticket.title }}"</h3>
+            <p>Titre : {{ post.headline }}</p>
+            <p>Note : {{ post.rating }}</p>
+            <p>Contenu : {{ post.body }}</p>
+            <p>Posté par: {{ post.user.username }}</p>
+            <p>{{ post.time_created }}</p>
+        </div>
         {% endif %}
     </li>
     {% endfor %}

@@ -3,17 +3,23 @@
 {% block title %}Créer une Review{% endblock %}
 
 {% block content %}
-{% if ticket %}
+{% if ticket and ticket.review_exist %}
 <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
 <div>
     {{ ticket.image }}<br>
     {{ ticket.description }}<br>
+    <p>Ce ticket a déjà une review</p>
 </div>
 
+{% elif ticket and not ticket.review_exist %}
+<div>
+    {{ ticket.image }}<br>
+    {{ ticket.description }}<br>
+</div>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Créer</button>
+    <button class="button success-button" type="submit">Créer</button>
 </form>
 
 {% else %}
@@ -22,7 +28,7 @@
     {% csrf_token %}
     {{ ticket_form.as_p }}
     {{ review_form.as_p }}
-    <button type="submit">Créer</button>
+    <button class="button success-button" type="submit">Créer</button>
 </form>
 {% endif %}
 {% endblock %}

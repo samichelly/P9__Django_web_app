@@ -17,6 +17,7 @@ class Ticket(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="ticket_images/", null=True, blank=True)
     time_created = models.DateTimeField(auto_now_add=True)
+    review_exist = models.BooleanField(default=False)
 
 
 class Review(models.Model):

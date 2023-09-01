@@ -26,18 +26,21 @@
         <div class="review-container">
             <h1>{{ post.post_type }}</h1>
             <h3>Review pour le billet "{{ post.ticket.title }}"</h3>
-            {% if post.ticket.image %}
-            <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}"><br>
-            {% endif %}
-            <p>Description : {{ post.ticket.description }}</p>
-            <p>Posté par : : {{ post.ticket.user.username }}</p>
-            <p>Date création : {{ post.ticket.time_created }}</p>
             <h3>Review</h3>
             <p>Titre : {{ post.headline }}</p>
             <p>Note : {{ post.rating }}</p>
             <p>Contenu : {{ post.body }}</p>
             <p>Posté par: {{ post.user.username }}</p>
             <p>{{ post.time_created }}</p>
+            <div class="block_ticket">
+                <h3>{{ post.ticket.title }}</h3>
+                {% if post.ticket.image %}
+                <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}"><br>
+                {% endif %}
+                <p>Description : {{ post.ticket.description }}</p>
+                <p>Posté par : : {{ post.ticket.user.username }}</p>
+                <p>Date création : {{ post.ticket.time_created }}</p>
+            </div>
             <button class="button secondary-button"><a href="{% url 'edit_review' post.id %}">Éditer</a></button>
             <button class="button secondary-button"><a href="{% url 'delete_review' post.id %}">Supprimer</a></button>
         </div>

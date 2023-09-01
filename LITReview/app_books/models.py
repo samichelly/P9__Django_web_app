@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 
 RATING_CHOICES = (
+    (0, "0"),
     (1, "1"),
     (2, "2"),
     (3, "3"),

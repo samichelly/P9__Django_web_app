@@ -27,9 +27,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.signin, name="signin"),
     path("signup/", views.signup, name="signup"),
+    path("logout/", views.signout, name="logout"),
     path("home/", views.home, name="home"),
     path("subscription/", views.subscription, name="subscription"),
     path("posts/", views.posts, name="posts"),
+    path("profile/", views.profile, name="profile"),
     path("create_ticket/", views.create_ticket, name="create_ticket"),
     path("create_review/", views.create_review, name="create_review"),
     path("create_review/<int:ticket_id>/", views.create_review, name="create_review"),
@@ -37,7 +39,9 @@ urlpatterns = [
     path("edit_review/<int:review_id>/", views.edit_review, name="edit_review"),
     path("delete_ticket/<int:post_id>/", views.delete_ticket, name="delete_ticket"),
     path("delete_review/<int:post_id>/", views.delete_review, name="delete_review"),
-    path("logout/", views.signout, name="logout"),
+    path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+
 ]
 
 if settings.DEBUG:

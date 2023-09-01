@@ -24,6 +24,7 @@
                 <li><a href="{% url 'logout' %}">Se déconnecter</a></li>
             </ul>
             <div class="user_connected">
+                <a href="{% url 'profile' %}">Consulter le profil</a></li>
                 <p>Utilisateur : {{ user.username }}</p>
             </div>
         </nav>

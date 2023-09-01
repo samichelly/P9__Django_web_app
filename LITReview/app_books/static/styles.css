@@ -40,13 +40,40 @@ header img {
     font-style: italic;
 }
 
+/* Signin */
+.signin_form {
+    margin: 20px auto;
+    /* Marge autour du formulaire */
+    padding: 20px;
+    /* Rembourrage à l'intérieur du formulaire */
+    max-width: 400px;
+    /* Largeur maximale du formulaire */
+    background-color: #f4f4f4;
+    /* Couleur de fond du formulaire */
+    border: 1px solid #ccc;
+    /* Bordure autour du formulaire */
+    border-radius: 5px;
+    /* Coins arrondis */
+}
+
+.signin_form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signin_form button,
+.signin_form a {
+    margin-top: 10px;
+    /* Marge supérieure pour les boutons et les liens */
+}
+
+
 
 
 /* NavBar */
 nav ul {
     list-style: none;
     display: flex;
-    /* background-color: #333; */
     padding: 10px;
     margin-right: 10px;
     justify-content: space-around;
@@ -109,11 +136,11 @@ nav ul li a:hover {
 }
 
 .block_ticket {
-    background-color: grey;
-    color: white;
+    background-color: wheat;
+    color: black;
     padding: 10px;
     margin-bottom: 20px;
-    border-bottom: 5px solid black;
+    border: 5px solid peru;
     border-radius: 5px;
 }
 

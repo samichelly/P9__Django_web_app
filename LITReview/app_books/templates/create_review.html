@@ -5,14 +5,12 @@
 {% block content %}
 {% if ticket and ticket.review_exist %}
 <div>
-    <h3>Erreur : Une review a été rédigé pour ce ticket</h3>
+    <h3>Erreur : Une review a été rédigée pour ce ticket</h3>
     <button class="button secondary-button"><a href="{% url 'home' %}">Retour</a></button>
 </div>
 
 {% elif ticket and not ticket.review_exist %}
 <div class="block_create_review">
-
-
 
     <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
     <div class="block_ticket">
@@ -23,7 +21,16 @@
     </div>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.headline.label_tag }}
+        {{ form.headline }}<br>
+        <div class="rating-radio">
+            {{ form.rating.label_tag }}
+            {% for choice in form.rating %}
+            {{ choice.tag }} {{ choice.choice_label }}
+            {% endfor %}
+        </div>
+        {{ form.body.label_tag }}
+        {{ form.body }}
         <button class="button success-button" type="submit">Créer</button>
     </form>
 
@@ -31,10 +38,20 @@
     <h2>Créer un nouveau Ticket et une Review</h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ ticket_form.as_p }}
-        {{ review_form.as_p }}
+        {{ ticket_form.as_p }}<br>
+        {{ review_form.headline.label_tag }}
+        {{ review_form.headline }}<br>
+        <div class="rating-radio">
+            {{ review_form.rating.label_tag }}
+            {% for choice in review_form.rating %}
+            {{ choice.tag }} {{ choice.choice_label }}
+            {% endfor %}
+        </div>
+        {{ review_form.body.label_tag }}<br>
+        {{ review_form.body }}<br>
         <button class="button success-button" type="submit">Créer</button>
     </form>
+
 </div>
 {% endif %}
 {% endblock %}

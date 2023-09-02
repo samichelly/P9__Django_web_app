@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Créer un billet{% endblock %}
+{% block title %}Créer un ticket{% endblock %}
 
 {% block content %}
-<h2>Créer un nouveau billet</h2>
+<h2>Créer un nouveau ticket</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

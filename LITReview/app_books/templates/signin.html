@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Se connecter</h2>
-<div class="signin_form">
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button success-button" type="submit">Connexion</button>
+<div class="signin">
+    <div class="signin_form">
+        <h2>Se connecter</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="button success-button" type="submit">Connexion</button>
+        </form>
+    </div>
+    <div class="signin_form">
+        <h3>S'inscrire</h3>
         <a href="{% url 'signup' %}" class="button success-button">Créer un compte</a>
-    </form>
+    </div>
 </div>
 {% endblock %}

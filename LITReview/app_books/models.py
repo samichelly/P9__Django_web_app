@@ -24,7 +24,8 @@ class Ticket(models.Model):
 class Review(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="reviews")
     headline = models.CharField(max_length=128)
-    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+    # rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+    rating = models.PositiveIntegerField()
     body = models.TextField(max_length=2048)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     time_created = models.DateTimeField(auto_now_add=True)

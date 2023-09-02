@@ -5,8 +5,8 @@
 {% block content %}
 <h2>Profil</h2>
 <div class="user-profile">
-    <p><strong>Nom d'Utilisateur :</strong> {{ user.username }}</p>
-    <p><strong>Adresse E-mail :</strong> {{ user.email }}</p>
+    <p><strong>Nom d'utilisateur :</strong> {{ user.username }}</p>
+    <p><strong>Adresse e-mail :</strong> {{ user.email }}</p>
     <a href="{% url 'password_change' %}">Changer le mot de passe</a>
 </div>
 {% endblock %}

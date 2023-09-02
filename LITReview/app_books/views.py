@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Value, CharField
-from django.db.models import F
 from itertools import chain
 from .models import Ticket, Review, UserFollows
 from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
@@ -39,6 +37,10 @@ def signout(request):
     return redirect("signin")
 
 
+def get_rating_stars(rating):
+    return "★" * rating
+
+
 def home(request):
     all_tickets = Ticket.objects.all().annotate(
         post_type=Value("ticket", output_field=CharField())
@@ -46,6 +48,10 @@ def home(request):
     all_reviews = Review.objects.all().annotate(
         post_type=Value("review", output_field=CharField())
     )
+
+    # Conversion note en étoiles
+    for review in all_reviews:
+        review.rating = get_rating_stars(review.rating)
 
     all_posts = sorted(
         chain(all_tickets, all_reviews),
@@ -64,6 +70,10 @@ def posts(request):
     user_reviews = Review.objects.filter(user=request.user).annotate(
         post_type=Value("review", output_field=CharField())
     )
+
+    # Conversion note en étoiles
+    for review in user_reviews:
+        review.rating = get_rating_stars(review.rating)
 
     user_posts_and_reviews = sorted(
         chain(user_posts, user_reviews),
@@ -144,16 +154,10 @@ def delete_review(request, post_id):
     return render(request, "delete_review.html", {"post": post})
 
 
-def profile(request):
-    return render(request, "profile.html")
-
-def subscription(request):
-    return render(request, "subscription.html")
-
-
 @login_required
-def create_review(request, ticket_id=None):  # ticket et pas ticket_id
+def create_review(request, ticket_id=None):
     ticket = None
+
     if ticket_id:
         ticket = get_object_or_404(Ticket, id=ticket_id)
 
@@ -209,3 +213,11 @@ def create_review(request, ticket_id=None):  # ticket et pas ticket_id
             }
 
     return render(request, "create_review.html", context)
+
+
+def profile(request):
+    return render(request, "profile.html")
+
+
+def subscription(request):
+    return render(request, "subscription.html")

@@ -4,13 +4,13 @@
 
 {% block content %}
 {% csrf_token %}
-<h2>Mon Flux</h2>
 
-<h3>Nouveau Post</h3>
-<button class="button primary-button"><a href="{% url 'create_ticket' %}">Créer un Ticket</a></button>
-<button class="button primary-button"><a href="{% url 'create_review' %}">Créer une Review</a></button>
+<div class="button-create_posts">
+    <a href="{% url 'create_ticket' %}" class="button primary-button">Créer un Ticket</a>
+    <a href="{% url 'create_review' %}" class="button primary-button">Créer une Review</a>
+</div>
 
-<h3>Posts</h3>
+<h1>Mon Flux</h1>
 <ul>
     {% for post in user_posts_and_reviews %}
     <li>
@@ -23,14 +23,12 @@
             <p>Date création : {{ post.time_created }}</p>
             {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
-            <button class="button secondary-button"><a href="{% url 'create_review' post.id %}">Créer une
-                    review</a></button>
+            <a href="{% url 'create_review' post.id %}" class="button secondary-button">Créer une review</a>
             {% endif %}
         </div>
         {% elif post.post_type == 'review' %}
         <div class="review-container">
-            <h3>Review pour le billet "{{ post.ticket.title }}"</h3>
-            <h3>Review</h3>
+            <h3>Review pour le ticket "{{ post.ticket.title }}"</h3>
             <p>Titre : {{ post.headline }}</p>
             <p>Note : {{ post.rating }}</p>
             <p>Contenu : {{ post.body }}</p>
@@ -45,7 +43,8 @@
                 <p>Posté par : : {{ post.ticket.user.username }}</p>
                 <p>Date création : {{ post.ticket.time_created }}</p>
             </div>
-            {% endif %}
+        </div>
+        {% endif %}
     </li>
     {% endfor %}
 </ul>

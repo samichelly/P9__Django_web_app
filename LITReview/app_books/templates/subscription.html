@@ -3,23 +3,40 @@
 
 {% block content %}
 <h1>Abonnements</h1>
-<h2 class="users-heading">Utilisateurs pouvant être suivis</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <h4>test</h4>
-    <button type="submit">Souscrire</button>
-</form>
+<h2>Utilisateurs pouvant être suivis</h2>
+<div class="users-heading">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button success-button" type="submit">S'abonner</button>
+    </form>
+</div>
 
-<h2 class="followed-heading">Utilisateurs suivis :</h2>
-<form method="post">
-    {% csrf_token %}
-    {% for followed in request.user.following.all %}
-    <div>
-        {{ followed.followed_user.username }}
-        <a href="{% url 'unfollow_user' followed.followed_user.id %}" class="button danger-button">Se
-            désabonner</a>
-    </div>
-    {% endfor %}
-</form>
+
+
+<h2>Utilisateurs suivis :</h2>
+<div class="followed-heading">
+    <form method="post">
+        {% csrf_token %}
+        {% for followed in request.user.following.all %}
+        <div>
+            {{ followed.followed_user.username }}
+            <a href="{% url 'unfollow_user' followed.followed_user.id %}" class="button danger-button">Se désabonner</a>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+
+<h2>Utilisateurs qui vous suivent :</h2>
+<div class="followers-heading">
+    <form method="post">
+        {% csrf_token %}
+        {% for follower in request.user.followed_by.all %}
+        <div>
+            {{ follower.user.username }}
+        </div>
+        {% endfor %}
+    </form>
+</div>
+
 {% endblock %}

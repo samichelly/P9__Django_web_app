@@ -255,18 +255,26 @@ nav ul li a:hover {
 
 
 /* Subscription */
-/* styles.css */
-
 .users-heading {
+    display: flex;
+    flex-direction: column;
     font-size: 24px;
     color: #333;
     margin-bottom: 20px;
-    background-color: gray;
+    border-bottom: 5px solid peru;
 }
 
 .followed-heading {
     font-size: 24px;
     color: #333;
+    border-bottom: 5px solid peru;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.followers-heading {
+    font-size: 24px;
+    border-bottom: 5px solid peru;
     margin-top: 20px;
     margin-bottom: 20px;
 }

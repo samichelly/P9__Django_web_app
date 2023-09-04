@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Value, CharField
 from itertools import chain
 from .models import Ticket, Review, UserFollows
-from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm
+from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm, SubscriptionForm
 
 
 def signup(request):
@@ -215,9 +216,127 @@ def create_review(request, ticket_id=None):
     return render(request, "create_review.html", context)
 
 
+@login_required
 def profile(request):
     return render(request, "profile.html")
 
 
+"""
+@login_required
 def subscription(request):
-    return render(request, "subscription.html")
+    following_users = request.user.following.all()
+
+    if request.method == "POST":
+        form = SubscriptionForm(request.POST, following_users=following_users)
+        if form.is_valid():
+            followed_user = form.cleaned_data["users_to_follow"]
+            is_following = form.cleaned_data["is_following"]
+
+            if is_following:
+                # L'utilisateur choisit de suivre
+                UserFollows.objects.get_or_create(
+                    user=request.user, followed_user=followed_user
+                )
+            else:
+                # L'utilisateur choisit de ne pas suivre, nous le supprimons
+                UserFollows.objects.filter(
+                    user=request.user, followed_user=followed_user
+                ).delete()
+
+            return redirect("subscription")
+    else:
+        form = SubscriptionForm(following_users=following_users)
+
+    return render(request, "subscription.html", {"form": form})
+"""
+
+
+@login_required
+def subscription(request):
+    already_following = request.user.following.all().values_list(
+        "followed_user_id", flat=True
+    )
+
+    if request.method == "POST":
+        form = SubscriptionForm(
+            request.POST,
+            users_to_follow=User.objects.exclude(id=request.user.id).exclude(
+                id__in=already_following
+            ),
+        )
+        if form.is_valid():
+            followed_user = form.cleaned_data["users_to_follow"]
+            is_following = form.cleaned_data["is_following"]
+
+            if is_following:
+                # L'utilisateur choisit de suivre
+                user_follows = UserFollows(
+                    user=request.user, followed_user=followed_user
+                )
+                user_follows.save()
+            else:
+                # L'utilisateur choisit de ne pas suivre, nous le supprimons
+                UserFollows.objects.filter(
+                    user=request.user, followed_user=followed_user
+                ).delete()
+
+            return redirect("subscription")
+    else:
+        form = SubscriptionForm(
+            users_to_follow=User.objects.exclude(id=request.user.id).exclude(
+                id__in=already_following
+            )
+        )
+
+    return render(request, "subscription.html", {"form": form})
+
+
+"""
+
+@login_required
+def subscription(request):
+    # Récupérer la liste des utilisateurs déjà suivis
+    already_following = request.user.following.all().values_list(
+        "followed_user_id", flat=True
+    )
+
+    if request.method == "POST":
+        form = SubscriptionForm(request.POST, following_users=already_following)
+
+        if form.is_valid():
+            followed_user = form.cleaned_data["users_to_follow"]
+            is_following = form.cleaned_data["is_following"]
+
+            # Si l'utilisateur choisit de suivre
+            if is_following:
+                UserFollows.objects.get_or_create(
+                    user=request.user, followed_user=followed_user
+                )
+            else:
+                # Si l'utilisateur choisit de ne pas suivre, nous le supprimons
+                UserFollows.objects.filter(
+                    user=request.user, followed_user=followed_user
+                ).delete()
+
+            return redirect("subscription")
+    else:
+        form = SubscriptionForm(following_users=already_following)
+
+    return render(request, "subscription.html", {"form": form})
+"""
+
+
+@login_required
+def unfollow_user(request, user_id_to_unfollow):
+    user_to_unfollow = get_object_or_404(User, id=user_id_to_unfollow)
+
+    try:
+        user_follows = UserFollows.objects.get(
+            user=request.user, followed_user=user_to_unfollow
+        )
+        user_follows.delete()
+    except UserFollows.DoesNotExist:
+        # Gérer l'erreur si l'utilisateur n'est pas suivi
+        pass
+
+    return redirect("subscription")

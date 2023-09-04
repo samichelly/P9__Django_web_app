@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Ticket, Review
+from .models import Ticket, Review, UserFollows
 
 
 class SignUpForm(UserCreationForm):
@@ -41,3 +41,25 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ["headline", "rating", "body"]
+
+
+class SubscriptionForm(forms.Form):
+    users_to_follow = forms.ModelChoiceField(
+        queryset=None,
+        widget=forms.Select(attrs={"class": "form-control"}),
+    )
+    is_following = forms.BooleanField(
+        required=False,
+        initial=True,
+        widget=forms.HiddenInput(),
+    )
+
+    def __init__(self, *args, **kwargs):
+        users_to_follow = kwargs.pop("users_to_follow", None)
+        super().__init__(*args, **kwargs)
+        self.fields["users_to_follow"].queryset = users_to_follow
+
+    class Meta:
+        model = UserFollows
+        fields = ["users_to_follow"]
+        exclude = ["is_following"]

@@ -1,8 +1,25 @@
 {% extends 'base.html' %}
-
-{% block title %}Mes Abonnements{% endblock %}
-
+{% load static %}
 
 {% block content %}
-<h2>Abonnements</h2>
+<h1>Abonnements</h1>
+<h2 class="users-heading">Utilisateurs pouvant être suivis</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <h4>test</h4>
+    <button type="submit">Souscrire</button>
+</form>
+
+<h2 class="followed-heading">Utilisateurs suivis :</h2>
+<form method="post">
+    {% csrf_token %}
+    {% for followed in request.user.following.all %}
+    <div>
+        {{ followed.followed_user.username }}
+        <a href="{% url 'unfollow_user' followed.followed_user.id %}" class="button danger-button">Se
+            désabonner</a>
+    </div>
+    {% endfor %}
+</form>
 {% endblock %}

@@ -252,3 +252,21 @@ nav ul li a:hover {
 .default-button:hover {
     background-color: #bbb;
 }
+
+
+/* Subscription */
+/* styles.css */
+
+.users-heading {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    background-color: gray;
+}
+
+.followed-heading {
+    font-size: 24px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

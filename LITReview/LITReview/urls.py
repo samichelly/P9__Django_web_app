@@ -30,6 +30,13 @@ urlpatterns = [
     path("logout/", views.signout, name="logout"),
     path("home/", views.home, name="home"),
     path("subscription/", views.subscription, name="subscription"),
+    path(
+        "subscription/<int:user_id>/<str:action>/",
+        views.subscription,
+        name="subscription",
+    ),
+    path('unfollow/<int:user_id_to_unfollow>/', views.unfollow_user, name='unfollow_user'),
+
     path("posts/", views.posts, name="posts"),
     path("profile/", views.profile, name="profile"),
     path("create_ticket/", views.create_ticket, name="create_ticket"),
@@ -39,9 +46,16 @@ urlpatterns = [
     path("edit_review/<int:review_id>/", views.edit_review, name="edit_review"),
     path("delete_ticket/<int:post_id>/", views.delete_ticket, name="delete_ticket"),
     path("delete_review/<int:post_id>/", views.delete_review, name="delete_review"),
-    path('change_password/', auth_views.PasswordChangeView.as_view(), name='password_change'),
-    path('password_change_done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
-
+    path(
+        "change_password/",
+        auth_views.PasswordChangeView.as_view(),
+        name="password_change",
+    ),
+    path(
+        "password_change_done/",
+        auth_views.PasswordChangeDoneView.as_view(),
+        name="password_change_done",
+    ),
 ]
 
 if settings.DEBUG:

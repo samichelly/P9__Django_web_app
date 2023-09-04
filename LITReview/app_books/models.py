@@ -2,15 +2,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 
-RATING_CHOICES = (
-    (0, "0"),
-    (1, "1"),
-    (2, "2"),
-    (3, "3"),
-    (4, "4"),
-    (5, "5"),
-)
-
 
 class Ticket(models.Model):
     title = models.CharField(max_length=128)
@@ -24,7 +15,6 @@ class Ticket(models.Model):
 class Review(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name="reviews")
     headline = models.CharField(max_length=128)
-    # rating = models.PositiveIntegerField(choices=RATING_CHOICES)
     rating = models.PositiveIntegerField()
     body = models.TextField(max_length=2048)
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -40,6 +30,7 @@ class UserFollows(models.Model):
         on_delete=models.CASCADE,
         related_name="followed_by",
     )
+    is_following = models.BooleanField(default=True)
 
     class Meta:
         # ensures we don't get multiple UserFollows instances

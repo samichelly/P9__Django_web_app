@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Se désabonner de {{ unfollowed_user.username }}</h1>
+<form method="post">
+    {% csrf_token %}
+    <p>Êtes-vous sûr de vouloir vous désabonner de {{ unfollowed_user.username }} ?</p>
+    <button type="submit">Confirmer</button>
+    <a href="{% url 'subscription' %}">Annuler</a>
+</form>
+{% endblock %}

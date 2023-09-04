@@ -59,7 +59,7 @@ class SubscriptionForm(forms.Form):
         super().__init__(*args, **kwargs)
         self.fields["users_to_follow"].queryset = users_to_follow
 
-    class Meta:
-        model = UserFollows
-        fields = ["users_to_follow"]
-        exclude = ["is_following"]
+    # class Meta:
+    #     model = UserFollows
+    #     fields = ["users_to_follow"]
+    #     exclude = ["is_following"]

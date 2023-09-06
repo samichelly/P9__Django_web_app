@@ -38,6 +38,7 @@ def signout(request):
     return redirect("signin")
 
 
+# à bouger dans les HTML
 def get_rating_stars(rating):
     return "★" * rating
 
@@ -51,7 +52,9 @@ def home(request):
     ).annotate(post_type=Value("ticket", output_field=CharField()))
 
     user_reviews = Review.objects.filter(
-        Q(user=request.user) | Q(user__id__in=following_ids)
+        Q(user=request.user)
+        | Q(user__id__in=following_ids)
+        | Q(ticket__user=request.user)
     ).annotate(post_type=Value("review", output_field=CharField()))
 
     for review in user_reviews:

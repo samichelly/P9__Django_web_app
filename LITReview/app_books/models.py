@@ -30,7 +30,6 @@ class UserFollows(models.Model):
         on_delete=models.CASCADE,
         related_name="followed_by",
     )
-    is_following = models.BooleanField(default=True)
 
     class Meta:
         # ensures we don't get multiple UserFollows instances

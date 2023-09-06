@@ -3,13 +3,8 @@
 {% block title %}Créer une Review{% endblock %}
 
 {% block content %}
-{% if ticket and ticket.review_exist %}
-<div>
-    <h3>Erreur : Une review a été rédigée pour ce ticket</h3>
-    <button class="button secondary-button"><a href="{% url 'home' %}">Retour</a></button>
-</div>
 
-{% elif ticket and not ticket.review_exist %}
+{% if ticket and not ticket.review_exist %}
 <div class="block_create_review">
 
     <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>

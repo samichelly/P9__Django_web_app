@@ -31,12 +31,8 @@ urlpatterns = [
     path("home/", views.home, name="home"),
     path("subscription/", views.subscription, name="subscription"),
     path(
-        "subscription/<int:user_id>/<str:action>/",
-        views.subscription,
-        name="subscription",
+        "unfollow/<int:user_id_to_unfollow>/", views.unfollow_user, name="unfollow_user"
     ),
-    path('unfollow/<int:user_id_to_unfollow>/', views.unfollow_user, name='unfollow_user'),
-
     path("posts/", views.posts, name="posts"),
     path("profile/", views.profile, name="profile"),
     path("create_ticket/", views.create_ticket, name="create_ticket"),

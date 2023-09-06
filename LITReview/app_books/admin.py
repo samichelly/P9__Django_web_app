@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Ticket, Review
+from .models import Ticket, Review, UserFollows
 
 
 @admin.register(Ticket)
@@ -25,3 +25,8 @@ class ReviewAdmin(admin.ModelAdmin):
         "ticket__title",
     )
     list_filter = ("user", "ticket")
+
+
+@admin.register(UserFollows)
+class TicketAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "followed_user")

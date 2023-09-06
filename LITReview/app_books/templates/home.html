@@ -23,7 +23,9 @@
             <p>Date création : {{ post.time_created }}</p>
             {% if post.image %}
             <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
+            {% if not post.review_exist %}
             <a href="{% url 'create_review' post.id %}" class="button secondary-button">Créer une review</a>
+            {% endif %}
             {% endif %}
         </div>
         {% elif post.post_type == 'review' %}

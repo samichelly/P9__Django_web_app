@@ -1,4 +1,4 @@
-# DJANGO - LITREVU
+# DJANGO - LITReview
 
 ---
 
@@ -23,7 +23,7 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 2. Accédez au répertoire du projet :
 
    ```bash
-   cd mon-projet-django
+   cd LITReview
    ```
 
 3. Créez un environnement virtuel pour isoler les dépendances :

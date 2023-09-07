@@ -2,7 +2,7 @@
 
 ---
 
-Ce projet est une application Web construite avec Django qui permet aux utilisateurs de créer des tickets et des critiques (reviews) pour les tickets existants. Les utilisateurs peuvent également suivre d'autres utilisateurs et voir leurs activités sur leur flux.
+Ce projet est une application Web construite avec Django qui permet aux utilisateurs de créer des tickets et des critiques (reviews). Les utilisateurs peuvent également suivre d'autres utilisateurs et voir leurs activités sur leur flux.
 
 ## Table des matières
 
@@ -17,7 +17,7 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 1. Clonez ce dépôt sur votre machine locale en utilisant la commande suivante :
 
    ```bash
-   git clone https://github.com/votre-utilisateur/mon-projet-django.git
+   git clone https://github.com/samichelly/P9__Django_web_app.git
    ```
 
 2. Accédez au répertoire du projet :

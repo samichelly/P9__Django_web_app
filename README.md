@@ -1,8 +1,6 @@
-Bien sûr ! Voici un exemple de fichier README pour votre application Django. Vous pouvez personnaliser ce README en fonction des détails spécifiques de votre projet.
+# DJANGO - LITREVU
 
 ---
-
-# Mon Projet Django
 
 Ce projet est une application Web construite avec Django qui permet aux utilisateurs de créer des tickets et des critiques (reviews) pour les tickets existants. Les utilisateurs peuvent également suivre d'autres utilisateurs et voir leurs activités sur leur flux.
 

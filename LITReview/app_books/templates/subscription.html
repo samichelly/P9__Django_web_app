@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>Abonnements</h1>
-<h2>Utilisateurs pouvant être suivis</h2>
+<h3>Utilisateurs pouvant être suivis</h3>
 <div class="users-heading">
     <form method="post">
         {% csrf_token %}
@@ -12,9 +12,7 @@
     </form>
 </div>
 
-
-
-<h2>Utilisateurs suivis :</h2>
+<h3>Utilisateurs suivis</h3>
 <div class="followed-heading">
     <form method="post">
         {% csrf_token %}
@@ -27,7 +25,7 @@
     </form>
 </div>
 
-<h2>Utilisateurs qui vous suivent :</h2>
+<h3>Utilisateurs qui vous suivent</h3>
 <div class="followers-heading">
     <form method="post">
         {% csrf_token %}

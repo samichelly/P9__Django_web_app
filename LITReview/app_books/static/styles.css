@@ -16,6 +16,7 @@ body {
     padding: 20px;
 }
 
+
 /* Header */
 header {
     display: flex;
@@ -69,8 +70,6 @@ header img {
 }
 
 
-
-
 /* NavBar */
 ul {
     list-style-type: none;
@@ -108,80 +107,85 @@ nav ul li a:hover {
     color: peru;
 }
 
+
 /* Posts */
 .ticket-container,
 .review-container {
     list-style-type: none;
+    position: relative;
 }
 
 .ticket-container {
-    background-color: yellow;
+    background-color: wheat;
+    color: black;
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-bottom: 5px solid peru;
+    border-radius: 10px;
 }
-
-.review-container {
-    background-color: blue;
-    color: white;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.block_create_review {
-    background-color: purple;
-    color: white;
-    padding: 10px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-/* Style pour les boutons radio de notation */
-.rating-radio {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    /* Aligner les boutons radio verticalement au centre */
-}
-
-.rating-radio label {
-    margin-right: 10px;
-    cursor: pointer;
-    /* Afficher les boutons radio en ligne */
-    display: inline-block;
-
-}
-
-
-/* Styles pour les boutons radio cochés */
-.rating-radio input[type="radio"]+label:before {
-    content: "\2605";
-    /* Code Unicode de l'étoile pleine */
-    font-size: 24px;
-    /* Taille de police de l'étoile */
-    color: #f1c40f;
-    /* Couleur de l'étoile */
-}
-
-/* Style pour les boutons radio cochés au survol */
-.rating-radio input[type="radio"]:checked+label:before {
-    color: #e67e22;
-    /* Couleur de l'étoile au survol */
-}
-
 
 .block_ticket {
     background-color: wheat;
     color: black;
     padding: 10px;
     margin-bottom: 20px;
-    border: 5px solid peru;
-    border-radius: 5px;
+    border-radius: 10px;
 }
+
+.review-container {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 5px solid #3f87cc;
+    border-radius: 10px;
+}
+
+.block_create_review {
+    background-color: #3498db;
+    color: white;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.date-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+    /* Ajustez la taille de la police au besoin */
+}
+
+
+/* Style pour les boutons radio de notation */
+.rating-radio {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.rating-radio label {
+    margin-right: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+
+
+/* Rating */
+.star-rating {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f005';
+    margin-right: 5px;
+}
+
+.star {
+    color: gold;
+}
+
 
 /* Bouton de base */
 .button {
@@ -203,17 +207,22 @@ nav ul li a:hover {
     justify-content: space-around;
 }
 
-/* Bouton primaire (ex: Créer, Envoyer) */
+/* Bouton primaire Creation */
 .primary-button {
-    background-color: #3498db;
+    background-color: peru;
     color: #fff;
+    font-size: larger;
+    width: 200px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
 }
 
 .primary-button:hover {
-    background-color: #2980b9;
+    background-color: rgb(206, 121, 36);
 }
 
-/* Bouton secondaire (ex: Annuler, Retour) */
+/* Bouton secondaire Annuler, Retour */
 .secondary-button {
     background-color: #95a5a6;
     color: #fff;
@@ -223,7 +232,7 @@ nav ul li a:hover {
     background-color: #7f8c8d;
 }
 
-/* Bouton de danger (ex: Supprimer) */
+/* Bouton de danger Supprimer */
 .danger-button {
     background-color: #e74c3c;
     color: #fff;
@@ -233,7 +242,7 @@ nav ul li a:hover {
     background-color: #c0392b;
 }
 
-/* Bouton de succès (ex: Enregistrer) */
+/* Bouton de succès Enregistrer */
 .success-button {
     background-color: #2ecc71;
     color: #fff;
@@ -241,16 +250,6 @@ nav ul li a:hover {
 
 .success-button:hover {
     background-color: #27ae60;
-}
-
-/* Bouton par défaut (ex: Plus d'infos) */
-.default-button {
-    background-color: #ccc;
-    color: #333;
-}
-
-.default-button:hover {
-    background-color: #bbb;
 }
 
 

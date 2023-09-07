@@ -9,6 +9,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button class="button danger-button" type="submit">Confirmer</button>
-    <a href="{% url 'posts' %}">Annuler</a>
+    <a href="{% url 'posts' %}" class="button secondary-button">Annuler</a>
 </form>
 {% endblock %}

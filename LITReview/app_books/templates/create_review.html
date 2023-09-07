@@ -5,17 +5,19 @@
 {% block content %}
 
 {% if ticket and not ticket.review_exist %}
-<div class="block_create_review">
 
-    <h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
-    <div class="block_ticket">
-        {% if ticket.image %}
-        <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}"><br>
-        {% endif %}
-        {{ ticket.description }}<br>
-    </div>
-    <form method="post">
-        {% csrf_token %}
+<h2>Créer une Review pour le Ticket "{{ ticket.title }}"</h2>
+<div class="ticket-container">
+    {% if ticket.image %}
+    <img src="{{ ticket.image.url }}" alt="{{ ticket.title }}" title="Image représentant la couverture du livre"><br>
+    {% endif %}
+    <p>Description : {{ ticket.description }}</p>
+    <p>Posté par: {{ ticket.user.username }}</p>
+    <h6 class="date-right">Date création : {{ ticket.time_created }}</h6>
+</div>
+<form method="post">
+    {% csrf_token %}
+    <div class="review-container">
         {{ form.headline.label_tag }}
         {{ form.headline }}<br>
         <div class="rating-radio">
@@ -26,14 +28,18 @@
         </div>
         {{ form.body.label_tag }}
         {{ form.body }}
-        <button class="button success-button" type="submit">Créer</button>
-    </form>
+    </div>
+    <button class="button success-button" type="submit">Créer</button>
+</form>
 
-    {% else %}
-    <h2>Créer un nouveau Ticket et une Review</h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+{% else %}
+<h2>Créer un nouveau Ticket et une Review</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="ticket-container">
         {{ ticket_form.as_p }}<br>
+    </div>
+    <div class="review-container">
         {{ review_form.headline.label_tag }}
         {{ review_form.headline }}<br>
         <div class="rating-radio">
@@ -42,11 +48,12 @@
             {{ choice.tag }} {{ choice.choice_label }}
             {% endfor %}
         </div>
-        {{ review_form.body.label_tag }}<br>
-        {{ review_form.body }}<br>
-        <button class="button success-button" type="submit">Créer</button>
-    </form>
+        {{ review_form.body.label_tag }}
+        {{ review_form.body }}
+    </div>
+    <button class="button success-button" type="submit">Créer</button>
+</form>
 
-</div>
+
 {% endif %}
 {% endblock %}

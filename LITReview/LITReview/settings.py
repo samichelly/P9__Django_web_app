@@ -42,9 +42,6 @@ INSTALLED_APPS = [
     "app_books",
 ]
 
-# django.contrib.search,
-# django.contrib.rating,
-# crispy_forms,
 
 #  Excuter avant ou après la requête HTTP
 MIDDLEWARE = [

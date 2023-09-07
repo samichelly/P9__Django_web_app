@@ -14,12 +14,13 @@
             <h3>Titre : {{ post.title }}</h3>
             <p>Description : {{ post.description }}</p>
             <p>Posté par : {{ post.user.username }}</p>
-            <p>Date création : {{ post.time_created }}</p>
+            <h6 class="date-right">Date création : {{ post.time_created }}</h6>
             {% if post.image %}
-            <img src="{{ post.image.url }}" alt="{{ post.title }}"><br>
+            <img src="{{ post.image.url }}" alt="{{ post.title }}"
+                title="Image représentant la couverture du livre"><br>
             {% endif %}
-            <button class="button secondary-button"><a href="{% url 'edit_ticket' post.id %}">Éditer</a></button>
-            <button class="button secondary-button"><a href="{% url 'delete_ticket' post.id %}">Supprimer</a></button>
+            <a href="{% url 'edit_ticket' post.id %}" class="button secondary-button">Éditer</a>
+            <a href="{% url 'delete_ticket' post.id %}" class="button secondary-button">Supprimer</a>
 
         </div>
         {% elif post.post_type == 'review' %}
@@ -28,21 +29,26 @@
             <h3>Review pour le billet "{{ post.ticket.title }}"</h3>
             <h3>Review</h3>
             <p>Titre : {{ post.headline }}</p>
-            <p>Note : {{ post.rating }}</p>
+            <div class="star-rating">
+                {% for _ in "x"|rjust:post.rating %}
+                <span class="star">&#9733;</span>
+                {% endfor %}
+            </div>
             <p>Contenu : {{ post.body }}</p>
             <p>Posté par: {{ post.user.username }}</p>
-            <p>{{ post.time_created }}</p>
-            <div class="block_ticket">
+            <h6 class="date-right">Date création : {{ post.time_created }}</h6>
+            <div class="ticket-container">
                 <h3>{{ post.ticket.title }}</h3>
                 {% if post.ticket.image %}
-                <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}"><br>
+                <img src="{{ post.ticket.image.url }}" alt="{{ post.ticket.title }}"
+                    title="Image représentant la couverture du livre"><br>
                 {% endif %}
                 <p>Description : {{ post.ticket.description }}</p>
                 <p>Posté par : : {{ post.ticket.user.username }}</p>
-                <p>Date création : {{ post.ticket.time_created }}</p>
+                <h6 class="date-right">Date création : {{ post.ticket.time_created }}</h6>
             </div>
-            <button class="button secondary-button"><a href="{% url 'edit_review' post.id %}">Éditer</a></button>
-            <button class="button secondary-button"><a href="{% url 'delete_review' post.id %}">Supprimer</a></button>
+            <a href="{% url 'edit_review' post.id %}" class="button secondary-button">Éditer</a>
+            <a href="{% url 'delete_review' post.id %}" class="button secondary-button">Supprimer</a>
         </div>
         {% endif %}
     </li>

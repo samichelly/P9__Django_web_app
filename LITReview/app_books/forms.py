@@ -54,12 +54,9 @@ class SubscriptionForm(forms.Form):
         widget=forms.HiddenInput(),
     )
 
+    users_to_follow.label = ""
+
     def __init__(self, *args, **kwargs):
         users_to_follow = kwargs.pop("users_to_follow", None)
         super().__init__(*args, **kwargs)
         self.fields["users_to_follow"].queryset = users_to_follow
-
-    # class Meta:
-    #     model = UserFollows
-    #     fields = ["users_to_follow"]
-    #     exclude = ["is_following"]

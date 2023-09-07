@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login, logout
 from django.db.models import Value, CharField, Q
 from itertools import chain
 from .models import Ticket, Review, UserFollows
@@ -38,11 +38,6 @@ def signout(request):
     return redirect("signin")
 
 
-# à bouger dans les HTML
-def get_rating_stars(rating):
-    return "★" * rating
-
-
 @login_required
 def home(request):
     following_ids = request.user.following.values_list("followed_user_id", flat=True)
@@ -56,9 +51,6 @@ def home(request):
         | Q(user__id__in=following_ids)
         | Q(ticket__user=request.user)
     ).annotate(post_type=Value("review", output_field=CharField()))
-
-    for review in user_reviews:
-        review.rating = get_rating_stars(review.rating)
 
     user_posts = sorted(
         chain(user_tickets, user_reviews),
@@ -77,10 +69,6 @@ def posts(request):
     user_reviews = Review.objects.filter(user=request.user).annotate(
         post_type=Value("review", output_field=CharField())
     )
-
-    # Conversion note en étoiles
-    for review in user_reviews:
-        review.rating = get_rating_stars(review.rating)
 
     user_posts_and_reviews = sorted(
         chain(user_posts, user_reviews),
@@ -156,6 +144,10 @@ def delete_ticket(request, post_id):
 def delete_review(request, post_id):
     post = get_object_or_404(Review, id=post_id, user=request.user)
     if request.method == "POST":
+        ticket = post.ticket
+        ticket.review_exist = False
+        ticket.save()
+
         post.delete()
         return redirect("posts")
     return render(request, "delete_review.html", {"post": post})

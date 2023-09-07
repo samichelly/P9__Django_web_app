@@ -62,3 +62,8 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 2. Accédez à l'application depuis le navigateur de votre choix, se rendre à l'adresse `http://127.0.0.1:8000/`.
 
 3. Vous pouvez maintenant vous inscrire, vous connecter, créer des tickets, des reviews, suivre d'autres utilisateurs et intéragir ensemble.
+
+#Django administration
+Identifiant : Admin | Mot de passe : litreview
+
+→ http://127.0.0.1:8000/admin/

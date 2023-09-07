@@ -28,5 +28,5 @@ class ReviewAdmin(admin.ModelAdmin):
 
 
 @admin.register(UserFollows)
-class TicketAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "followed_user")

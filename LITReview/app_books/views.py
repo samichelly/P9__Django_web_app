@@ -8,6 +8,7 @@ from .models import Ticket, Review, UserFollows
 from .forms import SignUpForm, SignInForm, TicketForm, ReviewForm, SubscriptionForm
 
 
+### CONNEXION ###
 def signup(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -38,6 +39,7 @@ def signout(request):
     return redirect("signin")
 
 
+### HOMEPAGE - POSTS ###
 @login_required
 def home(request):
     following_ids = request.user.following.values_list("followed_user_id", flat=True)
@@ -81,6 +83,7 @@ def posts(request):
     )
 
 
+### TICKETS - REVIEWS ###
 @login_required
 def create_ticket(request):
     if request.method == "POST":
@@ -98,7 +101,6 @@ def create_ticket(request):
 @login_required
 def edit_ticket(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
-
     if request.method == "POST":
         form = TicketForm(request.POST, request.FILES, instance=ticket)
         if form.is_valid():
@@ -106,29 +108,7 @@ def edit_ticket(request, ticket_id):
             return redirect("posts")
     else:
         form = TicketForm(instance=ticket)
-
     return render(request, "edit_ticket.html", {"form": form, "ticket": ticket})
-
-
-@login_required
-def edit_review(request, review_id):
-    review = get_object_or_404(Review, id=review_id, user=request.user)
-    print(review)
-    print(review.ticket)
-    ticket = get_object_or_404(Ticket, id=review.ticket.id)
-    print(ticket)
-
-    if request.method == "POST":
-        form = ReviewForm(request.POST, instance=review)
-        if form.is_valid():
-            form.save()
-            return redirect("posts")
-    else:
-        form = ReviewForm(instance=review)
-
-    return render(
-        request, "edit_review.html", {"form": form, "review": review, "ticket": ticket}
-    )
 
 
 @login_required
@@ -141,22 +121,8 @@ def delete_ticket(request, post_id):
 
 
 @login_required
-def delete_review(request, post_id):
-    post = get_object_or_404(Review, id=post_id, user=request.user)
-    if request.method == "POST":
-        ticket = post.ticket
-        ticket.review_exist = False
-        ticket.save()
-
-        post.delete()
-        return redirect("posts")
-    return render(request, "delete_review.html", {"post": post})
-
-
-@login_required
 def create_review(request, ticket_id=None):
     ticket = None
-
     if ticket_id:
         ticket = get_object_or_404(Ticket, id=ticket_id)
 
@@ -194,7 +160,6 @@ def create_review(request, ticket_id=None):
                 review.user = request.user
                 review.ticket = ticket
                 review.save()
-
                 return redirect("home")
     else:
         if ticket:
@@ -215,10 +180,35 @@ def create_review(request, ticket_id=None):
 
 
 @login_required
-def profile(request):
-    return render(request, "profile.html")
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id, user=request.user)
+    ticket = get_object_or_404(Ticket, id=review.ticket.id)
+    if request.method == "POST":
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            return redirect("posts")
+    else:
+        form = ReviewForm(instance=review)
+    return render(
+        request, "edit_review.html", {"form": form, "review": review, "ticket": ticket}
+    )
 
 
+@login_required
+def delete_review(request, post_id):
+    post = get_object_or_404(Review, id=post_id, user=request.user)
+    if request.method == "POST":
+        ticket = post.ticket
+        ticket.review_exist = False
+        ticket.save()
+
+        post.delete()
+        return redirect("posts")
+    return render(request, "delete_review.html", {"post": post})
+
+
+### SUBSCRIPTION ###
 @login_required
 def subscription(request):
     already_following = request.user.following.all().values_list(
@@ -261,3 +251,9 @@ def unfollow_user(request, user_id_to_unfollow):
         pass
 
     return redirect("subscription")
+
+
+### PROFILE ###
+@login_required
+def profile(request):
+    return render(request, "profile.html")

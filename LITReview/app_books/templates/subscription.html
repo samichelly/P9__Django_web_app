@@ -3,8 +3,9 @@
 
 {% block content %}
 <h1>Abonnements</h1>
-<h3>Utilisateurs pouvant être suivis</h3>
-<div class="users-heading">
+
+<div class="users-subscription">
+    <h3>Utilisateurs pouvant être suivis</h3>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
@@ -13,7 +14,7 @@
 </div>
 
 <h3>Utilisateurs suivis</h3>
-<div class="followed-heading">
+<div class="users-subscription">
     <form method="post">
         {% csrf_token %}
         {% for followed in request.user.following.all %}
@@ -26,7 +27,7 @@
 </div>
 
 <h3>Utilisateurs qui vous suivent</h3>
-<div class="followers-heading">
+<div class="users-subscription">
     <form method="post">
         {% csrf_token %}
         {% for follower in request.user.followed_by.all %}

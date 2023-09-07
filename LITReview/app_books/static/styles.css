@@ -124,28 +124,12 @@ nav ul li a:hover {
     border-radius: 10px;
 }
 
-.block_ticket {
-    background-color: wheat;
-    color: black;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-}
-
 .review-container {
     background-color: #3498db;
     color: white;
     padding: 10px;
     margin-bottom: 20px;
     border-bottom: 5px solid #3f87cc;
-    border-radius: 10px;
-}
-
-.block_create_review {
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    margin-bottom: 20px;
     border-radius: 10px;
 }
 
@@ -156,7 +140,6 @@ nav ul li a:hover {
     margin-top: 10px;
     margin-right: 10px;
     font-size: 12px;
-    /* Ajustez la taille de la police au besoin */
 }
 
 
@@ -172,7 +155,6 @@ nav ul li a:hover {
     cursor: pointer;
     display: inline-block;
 }
-
 
 
 /* Rating */
@@ -201,7 +183,7 @@ nav ul li a:hover {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.button-create_posts {
+.button-create-posts {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -253,27 +235,24 @@ nav ul li a:hover {
 }
 
 
+.ticket-container {
+    background-color: wheat;
+    color: black;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-bottom: 5px solid peru;
+    border-radius: 10px;
+}
+
 /* Subscription */
-.users-heading {
+.users-subscription {
+    background-color: wheat;
     display: flex;
     flex-direction: column;
-    font-size: 24px;
+    font-size: 16px;
     color: #333;
+    padding: 10px;
     margin-bottom: 20px;
+    border-radius: 10px;
     border-bottom: 5px solid peru;
-}
-
-.followed-heading {
-    font-size: 24px;
-    color: #333;
-    border-bottom: 5px solid peru;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.followers-heading {
-    font-size: 24px;
-    border-bottom: 5px solid peru;
-    margin-top: 20px;
-    margin-bottom: 20px;
 }

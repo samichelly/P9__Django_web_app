@@ -6,7 +6,9 @@
 <h2>Éditer le Ticket</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="ticket-container">
+        {{ form.as_p }}
+    </div>
     <button class="button success-button" type="submit">Enregistrer</button>
 </form>
 {% endblock %}

@@ -12,7 +12,7 @@
     {% endif %}
     <p>Description : {{ ticket.description }}</p>
     <p>Posté par : : {{ ticket.user.username }}</p>
-    <p>Date création : {{ ticket.time_created }}</p>
+    <h6 class="date-right">Date création : {{ ticket.time_created }}</h6>
 </div>
 
 <form method="post" enctype="multipart/form-data">

@@ -62,6 +62,17 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 2. Accédez à l'application depuis le navigateur de votre choix, se rendre à l'adresse → http://127.0.0.1:8000/ .
 
 3. Vous pouvez maintenant vous inscrire, vous connecter, créer des tickets, des reviews, suivre d'autres utilisateurs et intéragir ensemble.
+4. 
+
+## Création d'un Nouvel Utilisateur
+
+Pour créer un nouvel utilisateur, suivez les étapes suivantes :
+1. Accédez à la page d'inscription de l'application en se rendant à l'adresse → http://127.0.0.1:8000/signup .
+2. Remplissez le formulaire d'inscription en fournissant les informations, telles que le nom d'utilisateur, l'adresse e-mail et le mot de passe.
+3. Cliquez sur le bouton "Valider" pour soumettre le formulaire.
+4. Une fois le formulaire soumis avec succès, vous serez redirigé vers la page de connexion.
+5. Utilisez vos informations d'identification pour vous connecter à l'application.
+
 
 ### Django administration
 Identifiant : Admin | Mot de passe : litreview

@@ -8,7 +8,7 @@ Ce projet est une application Web construite avec Django qui permet aux utilisat
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
-- [Création d'un nouvel utilisateur](#Création d'un nouvel utilisateur)
+- [Création d'un nouvel utilisateur](#creation)
 
 ## Installation
 

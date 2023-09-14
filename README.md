@@ -8,6 +8,7 @@ Ce projet est une application Web construite avec Django qui permet aux utilisat
 
 - [Installation](#installation)
 - [Utilisation](#utilisation)
+- [Création d'un nouvel utilisateur](#Création d'un nouvel utilisateur)
 
 ## Installation
 
@@ -64,7 +65,7 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 3. Vous pouvez maintenant vous inscrire, vous connecter, créer des tickets, des reviews, suivre d'autres utilisateurs et intéragir ensemble.
 4. 
 
-## Création d'un Nouvel Utilisateur
+## Création d'un nouvel utilisateur
 
 Pour créer un nouvel utilisateur, suivez les étapes suivantes :
 1. Accédez à la page d'inscription de l'application en se rendant à l'adresse → http://127.0.0.1:8000/signup .

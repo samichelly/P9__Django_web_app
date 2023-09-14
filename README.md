@@ -76,6 +76,7 @@ Pour créer un nouvel utilisateur, suivez les étapes suivantes :
 
 Comptes utilisateurs :
 Identifiant : lecteur1 | Mot de passe : litreview
+
 Identifiant : lecteur2 | Mot de passe : litreview
 
 

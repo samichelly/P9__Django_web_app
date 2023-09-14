@@ -74,6 +74,10 @@ Pour créer un nouvel utilisateur, suivez les étapes suivantes :
 4. Une fois le formulaire soumis avec succès, vous serez redirigé vers la page de connexion.
 5. Utilisez vos informations d'identification pour vous connecter à l'application.
 
+Comptes utilisateurs :
+Identifiant : lecteur1 | Mot de passe : litreview
+Identifiant : lecteur2 | Mot de passe : litreview
+
 
 ### Django administration
 Identifiant : Admin | Mot de passe : litreview

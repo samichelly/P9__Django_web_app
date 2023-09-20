@@ -23,7 +23,7 @@ Pour exécuter ce projet localement, suivez ces étapes d'installation :
 2. Accédez au répertoire du projet :
 
    ```bash
-   cd LITReview
+   cd P9__Django_web_app\LITReview
    ```
 
 3. Créez un environnement virtuel pour isoler les dépendances :

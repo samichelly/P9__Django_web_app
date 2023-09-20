@@ -7,7 +7,9 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="ticket-container">
-        {{ form.as_p }}
+        {{ form.title }}<br>
+        {{ form.description }}<br>
+        {{ form.image.label_tag }} {{ form.image }}<br>
     </div>
     <button class="button success-button" type="submit">Créer</button>
 </form>

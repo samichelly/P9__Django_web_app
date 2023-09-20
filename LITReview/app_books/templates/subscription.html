@@ -8,7 +8,7 @@
     <h3>Utilisateurs pouvant être suivis</h3>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.as_p }}<br>
         <button class="button success-button" type="submit">S'abonner</button>
     </form>
 </div>
@@ -18,9 +18,10 @@
     <form method="post">
         {% csrf_token %}
         {% for followed in request.user.following.all %}
-        <div>
+        <div class="user-wrapper">
             {{ followed.followed_user.username }}
-            <a href="{% url 'unfollow_user' followed.followed_user.id %}" class="button danger-button">Se désabonner</a>
+            <a href="{% url 'unfollow_user' followed.followed_user.id %}" class="button danger-button user-button">Se
+                désabonner</a>
         </div>
         {% endfor %}
     </form>

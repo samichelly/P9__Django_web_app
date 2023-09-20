@@ -45,7 +45,8 @@ header img {
 .signin {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
+    /* Ajustez l'espacement entre les formulaires */
 }
 
 .signin_form {
@@ -57,17 +58,28 @@ header img {
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    /* Centrez les éléments horizontalement */
 }
 
 .signin_form form {
     flex-grow: 1;
-    /* Permet au formulaire de prendre toute la hauteur disponible */
+    margin-top: 20px;
+    width: 100%;
+    /* Remplissez la largeur disponible */
+    text-align: center;
+    /* Centrez le texte dans le formulaire */
 }
 
-.signin_form button,
-.signin_form a {
-    margin-top: 10px;
+.signin_form button {
+    margin-top: 20px;
+    /* Espacement entre le formulaire et le bouton */
+    width: 100%;
+    /* Remplissez la largeur disponible */
 }
+
+
+
 
 
 /* NavBar */
@@ -124,6 +136,10 @@ nav ul li a:hover {
     border-radius: 10px;
 }
 
+.ticket-container>* {
+    margin-bottom: 10px;
+}
+
 .review-container {
     background-color: #3498db;
     color: white;
@@ -131,6 +147,10 @@ nav ul li a:hover {
     margin-bottom: 20px;
     border-bottom: 5px solid #3f87cc;
     border-radius: 10px;
+}
+
+.review-container>* {
+    margin-bottom: 10px;
 }
 
 .date-right {
@@ -255,4 +275,15 @@ nav ul li a:hover {
     margin-bottom: 20px;
     border-radius: 10px;
     border-bottom: 5px solid peru;
+}
+
+.user-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    width: 100%;
 }

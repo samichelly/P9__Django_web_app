@@ -6,9 +6,11 @@
         <h2>Se connecter</h2>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            {{ form.username }}<br>
+            {{ form.password }}<br>
             <button class="button success-button" type="submit">Connexion</button>
         </form>
+
     </div>
     <div class="signin_form">
         <h2>S'inscrire ?</h2>

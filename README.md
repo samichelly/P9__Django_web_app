@@ -1,87 +1,78 @@
-# DJANGO - LITReview
+# PROJECT_9__DJANGO_LITReview
 
----
+## Project Description
 
-Ce projet est une application Web construite avec Django qui permet aux utilisateurs de créer des tickets et des critiques (reviews). Les utilisateurs peuvent également suivre d'autres utilisateurs et voir leurs activités sur leur flux.
-
-## Table des matières
-
-- [Installation](#installation)
-- [Utilisation](#utilisation)
-- [Création d'un nouvel utilisateur](#creation)
+This project is a web application built with Django that allows users to create tickets and reviews. Users can also follow other users and see their activities on their feed.
 
 ## Installation
 
-Pour exécuter ce projet localement, suivez ces étapes d'installation :
-
-1. Clonez ce dépôt sur votre machine locale en utilisant la commande suivante :
-
+1. Clone this repository to your local machine using the following command:
    ```bash
    git clone https://github.com/samichelly/P9__Django_web_app.git
    ```
-
-2. Accédez au répertoire du projet :
-
+2. Navigate to the project directory:
    ```bash
    cd P9__Django_web_app\LITReview
    ```
-
-3. Créez un environnement virtuel pour isoler les dépendances :
-
+3. Create a virtual environment to isolate dependencies:
    ```bash
    python -m venv venv
    ```
-
-4. Activez l'environnement virtuel (selon votre système d'exploitation) :
-
-   - Sur Windows :
-
+4. Activate the virtual environment (depending on your operating system):
+   - On Windows:
      ```bash
      venv\Scripts\activate
      ```
-
-   - Sur macOS et Linux :
-
+   - On macOS and Linux:
      ```bash
      source venv/bin/activate
      ```
-
-5. Installez les dépendances à partir du fichier `requirements.txt` :
-
+5. Install the dependencies from the `requirements.txt` file:
    ```bash
    pip install -r requirements.txt
    ```
 
-## Utilisation
+## Usage
 
-1. Démarrez le serveur de développement Django :
-
+1. Start the Django development server:
    ```bash
    python manage.py runserver
    ```
+2. Access the application from your preferred browser at:
+   ```text
+   http://127.0.0.1:8000/
+   ```
+3. You can now sign up, log in, create tickets, write reviews, follow other users, and interact with each other.
 
-2. Accédez à l'application depuis le navigateur de votre choix, se rendre à l'adresse → http://127.0.0.1:8000/ .
+## Creating a New User
 
-3. Vous pouvez maintenant vous inscrire, vous connecter, créer des tickets, des reviews, suivre d'autres utilisateurs et intéragir ensemble.
-4. 
+To create a new user, follow these steps:
+1. Go to the application's sign-up page at:
+   ```text
+   http://127.0.0.1:8000/signup
+   ```
+2. Fill out the registration form with your information, such as username, email address, and password.
+3. Click the "Submit" button to submit the form.
+4. Once the form is successfully submitted, you will be redirected to the login page.
+5. Use your credentials to log in to the application.
 
-## Création d'un nouvel utilisateur
+## User Accounts
 
-Pour créer un nouvel utilisateur, suivez les étapes suivantes :
-1. Accédez à la page d'inscription de l'application en se rendant à l'adresse → http://127.0.0.1:8000/signup .
-2. Remplissez le formulaire d'inscription en fournissant les informations, telles que le nom d'utilisateur, l'adresse e-mail et le mot de passe.
-3. Cliquez sur le bouton "Valider" pour soumettre le formulaire.
-4. Une fois le formulaire soumis avec succès, vous serez redirigé vers la page de connexion.
-5. Utilisez vos informations d'identification pour vous connecter à l'application.
+- **User 1:**
+  - Username: lecteur1
+  - Password: litreview
 
-Comptes utilisateurs :
+- **User 2:**
+  - Username: lecteur2
+  - Password: litreview
 
-Identifiant : lecteur1 | Mot de passe : litreview
+## Django Administration
 
-Identifiant : lecteur2 | Mot de passe : litreview
+- **Admin Account:**
+  - Username: Admin
+  - Password: litreview
 
-
-### Django administration
-Identifiant : Admin | Mot de passe : litreview
-
-→ http://127.0.0.1:8000/admin/
+Access the admin panel at:
+```text
+http://127.0.0.1:8000/admin/
+```
